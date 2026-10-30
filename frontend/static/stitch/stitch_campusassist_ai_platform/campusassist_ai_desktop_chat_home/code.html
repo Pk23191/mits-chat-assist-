@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusAssist AI - MITS Gwalior Portal</title>
+<!-- Material Symbols Outlined font -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with forms & container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-container": "#54e97d",
+            "secondary-fixed-dim": "#79db8d",
+            "primary-container": "#166534",
+            "surface-variant": "#d3e4fe",
+            "tertiary": "#004b1e",
+            "on-secondary-container": "#007233",
+            "inverse-primary": "#8bd79b",
+            "on-surface": "#0b1c30",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary-container": "#00662b",
+            "on-secondary-fixed-variant": "#005323",
+            "surface-container-high": "#dce9ff",
+            "surface-container-low": "#eff4ff",
+            "on-primary-container": "#93e0a2",
+            "surface-container-highest": "#d3e4fe",
+            "surface-container": "#e5eeff",
+            "on-tertiary-fixed-variant": "#005321",
+            "outline-variant": "#bfc9bd",
+            "secondary-container": "#92f5a4",
+            "on-tertiary-fixed": "#002109",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#005226",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed-dim": "#8bd79b",
+            "on-error": "#ffffff",
+            "surface": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#404940",
+            "inverse-surface": "#213145",
+            "primary-fixed": "#a6f4b5",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#4ae176",
+            "surface-container-lowest": "#ffffff",
+            "on-background": "#0b1c30",
+            "background": "#f8f9ff",
+            "outline": "#707a6f",
+            "tertiary-fixed": "#6bff8f",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#00210a",
+            "primary": "#004c22",
+            "secondary": "#006d30",
+            "surface-tint": "#1f6c3a",
+            "on-primary": "#ffffff",
+            "on-primary-fixed": "#00210b",
+            "secondary-fixed": "#95f8a7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "code-snippet": ["JetBrains Mono"],
+            "label-sm": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "code-snippet": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex selection:bg-secondary-fixed selection:text-primary">
+<!-- Left Persistent Desktop Sidebar (SideNavBar Shared Component) -->
+<aside class="fixed top-0 left-0 h-screen w-72 flex flex-col justify-between z-40 bg-surface-container-lowest border-r border-outline-variant/30 shadow-sm">
+<div class="h-full flex flex-col px-4 py-5 overflow-y-auto">
+<!-- Institutional Branding Header -->
+<div class="flex items-center gap-3 pb-5 mb-3 border-b border-outline-variant/20">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm ring-2 ring-primary/10">
+<span class="material-symbols-outlined text-[24px]">school</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-title-md font-headline-sm font-bold text-primary truncate leading-tight">CampusAssist AI</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant truncate">MITS Gwalior Portal</span>
+</div>
+</div>
+<!-- New Chat Button (CTA) -->
+<div class="mb-5">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-on-primary font-title-md text-title-md shadow-sm hover:bg-tertiary-container transition-all active:scale-[0.99] duration-150" id="newChatBtn">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>New Chat</span>
+</button>
+</div>
+<!-- Active Navigation Items -->
+<div class="space-y-1 mb-5">
+<!-- AI Chat (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-low text-primary font-title-md text-title-md border-l-4 border-primary" href="#ai-chat">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span>AI Chat</span>
+</a>
+<!-- College Explorer -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#college-explorer">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_balance">account_balance</span>
+<span>College Explorer</span>
+</a>
+<!-- Syllabus Vault -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#syllabus-vault">
+<span class="material-symbols-outlined text-[20px]" data-icon="menu_book">menu_book</span>
+<span>Syllabus Vault</span>
+</a>
+<!-- Exam Schedules -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#exam-schedules">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_today">calendar_today</span>
+<span>Exam Schedules</span>
+</a>
+<!-- Admin Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#admin-dashboard">
+<span class="material-symbols-outlined text-[20px]" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span>Admin Dashboard</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#settings">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<!-- Recent Conversations Rail Section -->
+<div class="flex-1 min-h-0 pt-3 border-t border-outline-variant/20">
+<div class="flex items-center justify-between px-3 mb-2">
+<span class="text-label-sm font-label-sm text-outline tracking-wider uppercase">Recent Sessions</span>
+<span class="material-symbols-outlined text-[16px] text-outline cursor-pointer hover:text-primary transition-colors">history</span>
+</div>
+<div class="space-y-0.5 overflow-y-auto max-h-36 pr-1">
+<button class="w-full text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low text-body-sm font-body-sm truncate flex items-center gap-2 group transition-colors">
+<span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">chat_bubble_outline</span>
+<span class="truncate">B.Tech 4th Sem Mid-Terms</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low text-body-sm font-body-sm truncate flex items-center gap-2 group transition-colors">
+<span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">chat_bubble_outline</span>
+<span class="truncate">Hostel Mess Fee Circular</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low text-body-sm font-body-sm truncate flex items-center gap-2 group transition-colors">
+<span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">chat_bubble_outline</span>
+<span class="truncate">CSE AI Evaluation Scheme</span>
+</button>
+</div>
+</div>
+<!-- User Profile & System Status Footer -->
+<div class="pt-4 border-t border-outline-variant/20 mt-2 space-y-2">
+<div class="flex items-center gap-3 p-2 rounded-xl bg-surface-container-low border border-outline-variant/30">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary font-title-md text-title-md font-bold overflow-hidden ring-1 ring-outline-variant/40">
+<img class="w-full h-full object-cover" data-alt="A dignified clean academic student portrait of a computer science scholar at Madhav Institute of Technology and Science in Gwalior, wearing a crisp formal collar, bathed in natural soft studio lighting, exhibiting an intellectual academic calm aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeFYmXdVvZ0IP9bPF5MMtY4fN2V1D7AO9wgt4HQwKTirbeZmX18aP6JLL5_HbN4TguDGwFUaS-8yogaUWoiqSjiqH64MNG69fS8jkAHg_VziNsKtqrxEPCke4Fq0D6z0BnthhZMGjyZGbGDxwvhFOOdPHZjiHeYXdDhSivpmBi36JsmkN8l5DVsJZRs-JkJJySesREkitT6WbeeXNF-c33jo99IbAdzJdFeLoeguc"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm font-title-md font-semibold text-on-surface truncate">Aarav Sharma</p>
+<p class="text-body-sm font-body-sm text-outline truncate">B.Tech CS Student · MITS</p>
+</div>
+<button class="p-1 text-outline hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors" title="Options">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<div class="flex items-center justify-between px-2 pt-1 text-label-sm font-label-sm text-outline">
+<a class="flex items-center gap-1 hover:text-primary transition-colors" href="#docs">
+<span class="material-symbols-outlined text-[15px]" data-icon="help">help</span>
+<span>Documentation</span>
+</a>
+<a class="flex items-center gap-1 hover:text-error transition-colors" href="#logout">
+<span class="material-symbols-outlined text-[15px]" data-icon="logout">logout</span>
+<span>Log Out</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Wrapper (Pushed 72 units from left) -->
+<div class="ml-72 flex-1 min-h-screen flex flex-col bg-background">
+<!-- Top Navigation Bar (TopNavBar Shared Component Execution) -->
+<header class="sticky top-0 h-16 w-full z-30 bg-surface-container-lowest border-b border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center h-full px-8 max-w-full">
+<!-- Left: Portal Sync Status Pill & Live Notice Ticker -->
+<div class="flex items-center gap-5">
+<!-- Institutional Live Connection Pill Badge -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-secondary-fixed-dim/40 text-primary">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed-dim opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-label-sm font-label-sm font-medium">MITS Gwalior Portal Sync: Connected</span>
+</div>
+<!-- Quick Circular Ticker Notice -->
+<div class="hidden xl:flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant bg-surface-bright px-3 py-1 rounded-lg border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary text-[16px]">campaign</span>
+<span class="font-medium text-primary">Latest Circular:</span>
+<span class="truncate max-w-xs text-outline">Dec 2024 End-Semester Practical Timetable Released</span>
+</div>
+</div>
+<!-- Center / Right Links from Shared JSON -->
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-primary font-title-md text-title-md border-b-2 border-primary pb-1" href="#curriculum">Curriculum 2024</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#notices">Department Notices</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#calendar">Academic Calendar</a>
+</div>
+<!-- Right Side: Secondary Actions & Icons -->
+<div class="flex items-center gap-3">
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-body-sm font-label-md rounded-lg text-primary border border-outline-variant/50 hover:bg-surface-container-low transition-colors duration-150">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Sync Records</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors" title="Help">
+<span class="material-symbols-outlined text-[20px]" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-6 w-px bg-outline-variant/30 mx-1"></div>
+<!-- Institutional Crest Avatar -->
+<div class="flex items-center gap-2 pl-1 cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-body-sm ring-2 ring-primary/20">
+              MG
+            </div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Academic Workspace Flow -->
+<main class="flex-1 flex flex-col justify-between max-w-5xl w-full mx-auto px-6 py-10">
+<!-- Top Center: Hero Greeting & Subtext -->
+<section class="text-center pt-4 pb-8 space-y-4">
+<!-- Institutional Tag -->
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-primary text-label-sm font-label-sm mx-auto shadow-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+<span>Official Madhav Institute of Technology &amp; Science Engine</span>
+</div>
+<!-- Master Headline -->
+<h1 class="text-display-hero font-display-hero text-on-surface tracking-tight max-w-3xl mx-auto">
+          Your Campus. Your Questions. <br/>
+<span class="text-primary underline decoration-secondary-container decoration-4 underline-offset-6">One Assistant.</span>
+</h1>
+<!-- Supporting Rationale -->
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+          Get direct answers from official MITS Gwalior circulars, academic schemes, examination rules, and administrative orders.
+        </p>
+</section>
+<!-- Centerpiece: Spacious Desktop Chat Input Box -->
+<section class="w-full max-w-3xl mx-auto mb-8">
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/50 shadow-md hover:shadow-lg focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all duration-200 p-3">
+<!-- Text Input Area -->
+<div class="px-2 pt-1 pb-2">
+<textarea class="w-full resize-none border-0 bg-transparent p-0 text-on-surface placeholder:text-outline text-body-md font-body-md focus:ring-0 focus:outline-none leading-relaxed" id="promptInput" placeholder="Ask anything about courses, exams, fees, or circulars..." rows="3"></textarea>
+</div>
+<!-- Bottom Actions inside Input Box -->
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/20 px-1">
+<div class="flex items-center gap-1.5">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" title="Attach Official Document or Syllabus PDF">
+<span class="material-symbols-outlined text-[20px]">attach_file</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" title="Voice Input Query">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+<div class="h-4 w-px bg-outline-variant/30 mx-1"></div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-low text-outline text-code-snippet font-code-snippet">
+<span class="material-symbols-outlined text-[13px]">keyboard_return</span>
+<span>Enter to send</span>
+</span>
+</div>
+<!-- Deep Green Primary Send Button -->
+<button class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center hover:bg-primary active:scale-95 transition-all shadow-sm" id="sendBtn">
+<span class="material-symbols-outlined text-[20px]">arrow_upward</span>
+</button>
+</div>
+</div>
+<!-- Query Helper Pills Under Input -->
+<div class="flex flex-wrap items-center justify-center gap-2 mt-3 text-body-sm font-body-sm text-outline">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Popular queries:</span>
+<button class="hover:text-primary underline decoration-dotted transition-colors" onclick="setQuery('End sem exam registration deadline')">End-sem registration deadline</button>
+<span>·</span>
+<button class="hover:text-primary underline decoration-dotted transition-colors" onclick="setQuery('Hostel fee installment structure')">Hostel fee installment</button>
+<span>·</span>
+<button class="hover:text-primary underline decoration-dotted transition-colors" onclick="setQuery('Grade credit system 2024 scheme')">Credit scheme 2024</button>
+</div>
+</section>
+<!-- 2x2 Clickable Bento Prompt Cards Grid -->
+<section class="w-full max-w-3xl mx-auto mb-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card 1: Academics -->
+<div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="setQuery('What undergraduate engineering courses does MITS offer?')">
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px]">school</span>
+                Academics
+              </span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+</div>
+<p class="text-body-md font-title-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+              What undergraduate engineering courses does MITS offer?
+            </p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+              Includes NBA accredited branches, intake capacities &amp; autonomous credits.
+            </p>
+</div>
+<!-- Card 2: Calendar & Exams -->
+<div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="setQuery('Where can I find the 2024-25 academic calendar &amp; exam schedule?')">
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px]">event_note</span>
+                Calendar &amp; Exams
+              </span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+</div>
+<p class="text-body-md font-title-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+              Where can I find the 2024-25 academic calendar &amp; exam schedule?
+            </p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+              Mid-sem windows, end-term practical slots, and semester breaks.
+            </p>
+</div>
+<!-- Card 3: Admissions & Fee -->
+<div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="setQuery('Help me find official B.Tech admission criteria and fee guidelines.')">
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px]">payments</span>
+                Admissions &amp; Fee
+              </span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+</div>
+<p class="text-body-md font-title-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+              Help me find official B.Tech admission criteria and fee guidelines.
+            </p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+              DTE counseling procedures, tuition tiers, and hostel deposit rules.
+            </p>
+</div>
+<!-- Card 4: Circulars -->
+<div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="setQuery('Show me the latest official college notices &amp; Dean circulars.')">
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px]">notifications_active</span>
+                Circulars
+              </span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+</div>
+<p class="text-body-md font-title-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+              Show me the latest official college notices &amp; Dean circulars.
+            </p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+              Ratified administrative directives, departmental club events &amp; attendance flags.
+            </p>
+</div>
+</div>
+</section>
+<!-- Bottom Footnote & Institutional Grounding Guarantee -->
+<footer class="pt-6 border-t border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between text-body-sm font-body-sm text-outline gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">lock</span>
+<span class="font-medium text-on-surface">Source Grounding:</span>
+<span>Grounded strictly in ratified MITS Gwalior circulars. Answers cite verified campus documents.</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm text-primary bg-surface-container-low px-2.5 py-1 rounded-full border border-secondary-fixed-dim/40">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Strict Institutional Compliance
+          </span>
+</div>
+</footer>
+</main>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+    function setQuery(text) {
+      const input = document.getElementById('promptInput');
+      input.value = text;
+      input.focus();
+    }
+
+    document.getElementById('newChatBtn').addEventListener('click', () => {
+      const input = document.getElementById('promptInput');
+      input.value = '';
+      input.focus();
+    });
+
+    document.getElementById('sendBtn').addEventListener('click', () => {
+      const input = document.getElementById('promptInput');
+      if (input.value.trim()) {
+        alert('Prompt submitted to MITS Knowledge Base: "' + input.value.trim() + '"');
+        input.value = '';
+      }
+    });
+
+    document.getElementById('promptInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('sendBtn').click();
+      }
+    });
+  </script>
+</body></html>

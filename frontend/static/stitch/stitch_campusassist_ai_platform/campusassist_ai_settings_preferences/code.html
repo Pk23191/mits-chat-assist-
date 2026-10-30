@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App Settings &amp; Student Preferences - CampusAssist AI</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#0b1c30",
+            "error": "#ba1a1a",
+            "surface-bright": "#f8f9ff",
+            "inverse-surface": "#213145",
+            "tertiary-fixed-dim": "#4ae176",
+            "on-surface-variant": "#404940",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed": "#00210a",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#00662b",
+            "primary": "#004c22",
+            "secondary-fixed-dim": "#79db8d",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-container": "#007233",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#005323",
+            "inverse-on-surface": "#eaf1ff",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed": "#002109",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "tertiary-fixed": "#6bff8f",
+            "background": "#f8f9ff",
+            "surface-variant": "#d3e4fe",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#95f8a7",
+            "secondary-container": "#92f5a4",
+            "secondary": "#006d30",
+            "on-primary-container": "#93e0a2",
+            "on-background": "#0b1c30",
+            "surface-dim": "#cbdbf5",
+            "primary-container": "#166534",
+            "on-tertiary-container": "#54e97d",
+            "outline": "#707a6f",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#004b1e",
+            "on-primary-fixed": "#00210b",
+            "outline-variant": "#bfc9bd",
+            "on-tertiary-fixed-variant": "#005321",
+            "primary-fixed": "#a6f4b5",
+            "surface-tint": "#1f6c3a",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#8bd79b",
+            "inverse-primary": "#8bd79b",
+            "on-primary-fixed-variant": "#005226"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "code-snippet": ["JetBrains Mono"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "title-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "code-snippet": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+            "display-hero-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+            "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "display-hero": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background-color: #f8f9ff;
+      color: #0b1c30;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased pb-28">
+<!-- TOP APP BAR (Shared Components Exact Execution) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile h-14 bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-3">
+<button aria-label="Menu" class="flex items-center justify-center p-2 rounded-lg text-primary hover:bg-surface-container-low transition-colors duration-150 active:scale-95">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<span class="text-headline-sm font-headline-sm font-bold text-primary tracking-tight">CampusAssist AI</span>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Institution" class="flex items-center justify-center p-2 rounded-lg text-primary hover:bg-surface-container-low transition-colors duration-150 active:scale-95">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</button>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="w-full max-w-lg mx-auto px-margin-mobile pt-space-md space-y-space-md">
+<!-- Screen Title & Student Context Banner -->
+<div class="space-y-space-xs">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-low text-primary border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+          Configuration
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-[#F0FDF4] text-[#166534] border border-[#BBF7D0]">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+          MITS Authenticated
+        </span>
+</div>
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">App Settings &amp; Student Preferences</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Customize your institutional academic assistant, response language, citation display, and data storage.</p>
+</div>
+<!-- SECTION 1: LANGUAGE & REGIONAL SETTINGS -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md border border-[#E2E8F0] shadow-sm space-y-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">translate</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface">Language &amp; Regional Settings</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Primary query response and academic terminology</p>
+</div>
+</div>
+</div>
+<!-- Language selector pills -->
+<div class="space-y-space-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Preferred Language</label>
+<div aria-label="Language Selector" class="grid grid-cols-2 gap-2" role="radiogroup">
+<!-- English Option -->
+<label class="cursor-pointer border-2 border-primary bg-[#F0FDF4] rounded-xl p-3 flex flex-col justify-between transition-all">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-md font-label-md font-semibold text-primary">English (Default)</span>
+<input checked="" class="text-primary focus:ring-primary h-4 w-4" name="language_select" type="radio" value="en"/>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Academic English (MITS Gwalior)</span>
+</label>
+<!-- Hindi Option -->
+<label class="cursor-pointer border border-[#E2E8F0] hover:border-outline bg-surface-container-lowest rounded-xl p-3 flex flex-col justify-between transition-all">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-md font-label-md font-semibold text-on-surface">हिंदी (Hindi)</span>
+<input class="text-primary focus:ring-primary h-4 w-4" name="language_select" type="radio" value="hi"/>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">देवनागरी लिपि में उत्तर</span>
+</label>
+</div>
+</div>
+<!-- Instant Preview Box -->
+<div class="bg-surface-container-low rounded-lg p-3 border border-outline-variant space-y-1">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">visibility</span>
+            Instant Preview
+          </span>
+<span class="text-code-snippet font-code-snippet text-outline">B.Tech CS Syllabus</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface italic">
+          "Course Outcome CO2: Design algorithms using dynamic programming principles."
+        </p>
+</div>
+<!-- Script display options -->
+<div class="space-y-space-xs pt-1 border-t border-[#E2E8F0]">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Script Display Mode</label>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded-full text-label-sm font-label-sm bg-primary text-on-primary" type="button">Standard Academic</button>
+<button class="px-3 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest text-on-surface-variant border border-outline-variant hover:bg-surface-container-low transition-colors" type="button">Transliteration (Hinglish)</button>
+</div>
+</div>
+</section>
+<!-- SECTION 2: APPEARANCE & THEME -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md border border-[#E2E8F0] shadow-sm space-y-space-md">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface">Appearance &amp; Theme</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Interface aesthetics &amp; reading comfort</p>
+</div>
+</div>
+<!-- Theme Mode Toggle -->
+<div class="space-y-space-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant block">Theme Selection</label>
+<div class="grid grid-cols-3 gap-2">
+<!-- Light (Institutional) -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-primary bg-[#F0FDF4] text-primary transition-all" type="button">
+<span class="material-symbols-outlined text-[22px] mb-1 text-primary">light_mode</span>
+<span class="text-label-sm font-label-sm font-semibold text-center">Light</span>
+<span class="text-[10px] text-primary-container leading-none mt-0.5">#166534 / White</span>
+</button>
+<!-- System Default -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-[#E2E8F0] bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-low transition-all" type="button">
+<span class="material-symbols-outlined text-[22px] mb-1">brightness_auto</span>
+<span class="text-label-sm font-label-sm font-medium text-center">System</span>
+<span class="text-[10px] text-outline leading-none mt-0.5">Auto Detect</span>
+</button>
+<!-- Dark Mode -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-[#E2E8F0] bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-low transition-all opacity-85" type="button">
+<span class="material-symbols-outlined text-[22px] mb-1">dark_mode</span>
+<span class="text-label-sm font-label-sm font-medium text-center">Dark</span>
+<span class="text-[10px] text-outline leading-none mt-0.5">Dimmed OLED</span>
+</button>
+</div>
+</div>
+<!-- Contrast Booster Toggle -->
+<div class="flex items-center justify-between pt-2 border-t border-[#E2E8F0]">
+<div class="pr-3">
+<div class="flex items-center gap-1.5">
+<span class="text-label-md font-label-md font-medium text-on-surface">Text Contrast Booster</span>
+<span class="px-1.5 py-0.2 rounded text-[10px] bg-surface-container text-primary font-semibold">WCAG AAA</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Reinforces font weights for citation documents and formula scripts.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</section>
+<!-- SECTION 3: PRIVACY & SOURCE TRANSPARENCY -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md border border-[#E2E8F0] shadow-sm space-y-space-md">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface">Privacy &amp; Source Transparency</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Institutional grounding and verifiable audits</p>
+</div>
+</div>
+<!-- Verified Source Trust Indicator Toggle -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-outline-variant">
+<div class="pr-2 space-y-0.5">
+<div class="flex items-center gap-1.5">
+<span class="text-label-md font-label-md font-semibold text-primary">Verified Source Trust Indicator</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Always display explicit citation badges, document reference IDs, and issuance timestamps in AI answers.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Data Privacy Statement Box -->
+<div class="p-3 rounded-lg border border-[#BBF7D0] bg-[#F0FDF4] space-y-1">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span class="text-label-sm font-label-sm font-semibold">Institutional Boundary Policy</span>
+</div>
+<p class="text-body-sm font-body-sm text-primary-container leading-relaxed">
+          CampusAssist AI only accesses public MITS portals and student-facing institutional documents. Student queries are anonymized.
+        </p>
+</div>
+</section>
+<!-- SECTION 4: CHAT HISTORY & DATA MANAGEMENT -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md border border-[#E2E8F0] shadow-sm space-y-space-md">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">manage_history</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface">Chat History &amp; Data Management</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Session persistence and export options</p>
+</div>
+</div>
+<!-- Save History Toggle -->
+<div class="flex items-center justify-between py-1">
+<div class="pr-3">
+<span class="text-label-md font-label-md font-medium text-on-surface">Save conversation history</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Retain query threads for revision and research continuity.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Action Buttons -->
+<div class="pt-2 border-t border-[#E2E8F0] space-y-2">
+<!-- Download Transcript Button -->
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-[#E2E8F0] bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-md text-label-md transition-colors active:scale-98" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">download</span>
+          Download conversation transcript (PDF/TXT)
+        </button>
+<!-- Clear Conversations Button -->
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-error-container bg-surface-container-lowest hover:bg-error-container text-error font-label-md text-label-md transition-colors active:scale-98" type="button">
+<span class="material-symbols-outlined text-[18px] text-error">delete_sweep</span>
+          Clear all local conversations
+        </button>
+</div>
+</section>
+<!-- SECTION 5: INSTITUTIONAL DISCLAIMER & SUPPORT -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md border border-[#E2E8F0] shadow-sm space-y-3">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="text-label-sm font-label-sm font-semibold text-on-surface">Institutional Notice</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant">
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-relaxed">
+          Disclaimer: CampusAssist is an informational AI tool. For statutory certificates and disputed grades, please consult the Registrar Office.
+        </p>
+</div>
+<div class="pt-2 flex items-center justify-between text-body-sm font-body-sm text-outline border-t border-[#E2E8F0]">
+<span>Engine Platform</span>
+<span class="font-code-snippet text-code-snippet font-medium text-primary">v2.4.0 (MITS Academic AI Engine)</span>
+</div>
+</section>
+</main>
+<!-- BOTTOM NAVIGATION BAR (Shared Components Exact Execution) -->
+<!-- Destination count: 4, label_texts: ["Chat", "Explorer", "Recent", "Settings"] -->
+<!-- Contextual active state: Settings is ACTIVE -->
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-space-xs bg-surface-container-lowest shadow-sm">
+<!-- Tab 1: Chat (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-low rounded-xl transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined text-[24px]">forum</span>
+<span class="text-label-sm font-label-sm mt-0.5">Chat</span>
+</a>
+<!-- Tab 2: Explorer (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-low rounded-xl transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined text-[24px]">menu_book</span>
+<span class="text-label-sm font-label-sm mt-0.5">Explorer</span>
+</a>
+<!-- Tab 3: Recent (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-low rounded-xl transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined text-[24px]">history</span>
+<span class="text-label-sm font-label-sm mt-0.5">Recent</span>
+</a>
+<!-- Tab 4: Settings (ACTIVE - Exact Execution of style_active_navigation) -->
+<a aria-current="page" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-label-sm font-label-sm mt-0.5 font-bold">Settings</span>
+</a>
+</nav>
+</body></html>

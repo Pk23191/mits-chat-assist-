@@ -1,0 +1,1 @@
+ENTIRELY FICTIONAL SAMPLE DATA. The FAQs, policies, fee amounts, dates, and services in `fictional_faqs.json` are invented for development and testing. No policy, fee, program, or deadline describes a real college. Do not present this content as verified institutional information.

@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.bak
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Sensitive configuration & Credentials
+.env
+.env.*
+!.env.example
+*client_secret*.json
+google_client_secret.json
+credentials*.json
+*.pem
+*.key
+
+# Vector store & Database binaries (binary sqlite/hnsw should not be committed)
+data/vectorstore/
+chroma/
+chroma_db/
+vector_db/
+*.sqlite3
+*.db
+
+# Temporary & Cache files
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.pip-cache/
+pip-temp/
+.verify_packages/
+_backup_*/
+scratch/
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+.idea/
+*.vscode/
+
+
+

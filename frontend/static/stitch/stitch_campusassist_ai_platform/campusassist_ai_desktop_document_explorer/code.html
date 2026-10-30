@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusAssist AI - College Information Explorer</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config verbatum -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-container": "#54e97d",
+            "secondary-fixed-dim": "#79db8d",
+            "primary-container": "#166534",
+            "surface-variant": "#d3e4fe",
+            "tertiary": "#004b1e",
+            "on-secondary-container": "#007233",
+            "inverse-primary": "#8bd79b",
+            "on-surface": "#0b1c30",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary-container": "#00662b",
+            "on-secondary-fixed-variant": "#005323",
+            "surface-container-high": "#dce9ff",
+            "surface-container-low": "#eff4ff",
+            "on-primary-container": "#93e0a2",
+            "surface-container-highest": "#d3e4fe",
+            "surface-container": "#e5eeff",
+            "on-tertiary-fixed-variant": "#005321",
+            "outline-variant": "#bfc9bd",
+            "secondary-container": "#92f5a4",
+            "on-tertiary-fixed": "#002109",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#005226",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed-dim": "#8bd79b",
+            "on-error": "#ffffff",
+            "surface": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#404940",
+            "inverse-surface": "#213145",
+            "primary-fixed": "#a6f4b5",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#4ae176",
+            "surface-container-lowest": "#ffffff",
+            "on-background": "#0b1c30",
+            "background": "#f8f9ff",
+            "outline": "#707a6f",
+            "tertiary-fixed": "#6bff8f",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#00210a",
+            "primary": "#004c22",
+            "secondary": "#006d30",
+            "surface-tint": "#1f6c3a",
+            "on-primary": "#ffffff",
+            "on-primary-fixed": "#00210b",
+            "secondary-fixed": "#95f8a7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "code-snippet": ["JetBrains Mono"],
+            "label-sm": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "code-snippet": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-secondary-container selection:text-on-secondary-fixed">
+<!-- ==================== SIDEBAR COMPONENT (Source of Truth JSON Executed) ==================== -->
+<aside class="fixed top-0 left-0 h-screen w-72 flex flex-col justify-between z-40 bg-surface-container-lowest dark:bg-surface-dim border-r border-outline-variant/30 shadow-sm">
+<div class="h-full flex flex-col px-4 py-5 overflow-y-auto">
+<!-- Brand & Header -->
+<div class="flex items-center gap-3 px-2 pb-5 border-b border-outline-variant/20">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/30 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+<img alt="MITS Gwalior Institutional Crest emblem" class="w-8 h-8 object-contain" data-alt="Official round institutional crest insignia seal representing Madhav Institute of Technology and Science Gwalior with balanced academic typography and clean heritage motif on a clean academic badge" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzkaueioKmDl32QB0GpRZiP97kXqqyZayHrjcNRuROZi5zV7F8lnGBxdumVmZLjjKrK_E5SJv8YLmoPdISH9rZ4hFVLVlf28qtSnAXLXkC7PehMHFeArZ6Pubu2QvkOD3JJHhr28ZlguL6yjmF2VpRRwmQwyTUggxA_3B052WoHt9wVCXwPYuWCvnf0WfSW1IXG5jtLcM4r52MXz1V_oxLe1aE1NMY6HSMkuAd2VM"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-title-md font-headline-sm font-bold text-primary dark:text-primary-fixed truncate">CampusAssist AI</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant truncate">MITS Gwalior Portal</span>
+</div>
+</div>
+<!-- Action Button (cta from JSON) -->
+<div class="pt-5 pb-3">
+<button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-tertiary transition-all active:scale-[0.99]">
+<span class="material-symbols-outlined text-[18px]">add_comment</span>
+<span>New Chat</span>
+</button>
+</div>
+<!-- Navigation tabs (Exact match logic: 'College Explorer' active) -->
+<nav class="space-y-1.5 flex-1 pt-2">
+<!-- AI Chat (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 dark:hover:bg-surface-container/50 font-body-md text-body-md transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+<span>AI Chat</span>
+</a>
+<!-- College Explorer (Active State per JSON style_active_navigation) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-low dark:bg-surface-container text-primary dark:text-primary-fixed font-title-md text-title-md border-l-4 border-primary shadow-xs" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+<span>College Explorer</span>
+</a>
+<!-- Syllabus Vault (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 dark:hover:bg-surface-container/50 font-body-md text-body-md transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span>Syllabus Vault</span>
+</a>
+<!-- Exam Schedules (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 dark:hover:bg-surface-container/50 font-body-md text-body-md transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>Exam Schedules</span>
+</a>
+<!-- Admin Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 dark:hover:bg-surface-container/50 font-body-md text-body-md transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+<span>Admin Dashboard</span>
+</a>
+<!-- Settings (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 dark:hover:bg-surface-container/50 font-body-md text-body-md transition-colors active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Sidebar Footer (from JSON footer_tab_labels) -->
+<div class="pt-4 border-t border-outline-variant/20 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 dark:hover:bg-surface-container/50 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span>Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Log Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- ==================== TOP NAVIGATION BAR (Source of Truth JSON Executed) ==================== -->
+<header class="sticky top-0 h-16 w-auto z-30 ml-72 bg-surface-container-lowest dark:bg-surface-dim border-b border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center h-full px-6 max-w-full">
+<!-- Academic quick breadcrumbs / Top Links -->
+<nav class="flex items-center space-x-6">
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#">Curriculum 2024</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#">Department Notices</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#">Academic Calendar</a>
+</nav>
+<!-- Trailing Controls Cluster -->
+<div class="flex items-center space-x-3.5">
+<!-- Faculty Directory Secondary Link -->
+<button class="px-3.5 py-1.5 rounded-lg border border-outline-variant/40 bg-surface-container-lowest hover:bg-surface-container-low font-label-md text-label-md text-on-surface transition-colors">
+          Faculty Directory
+        </button>
+<!-- Sync Records Primary CTA -->
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-xs hover:bg-tertiary transition-colors">
+<span class="material-symbols-outlined text-[17px]">sync</span>
+<span>Sync Records</span>
+</button>
+<!-- Divider -->
+<div class="h-6 w-px bg-outline-variant/30"></div>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center space-x-1">
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-lg transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-lg transition-colors" title="Help">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+<!-- User Profile Avatar -->
+<div class="flex items-center pl-2">
+<div class="w-8 h-8 rounded-full border border-primary/20 overflow-hidden ring-2 ring-primary-fixed/40">
+<img alt="MITS Student Faculty User Avatar" class="w-full h-full object-cover" data-alt="Professional portrait photograph of an Indian engineering academic faculty researcher with spectacles and dignified posture inside a well-lit university laboratory setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsOVI6QvijGS_iEgAzj68i1lfpv5I1qF9rrZNvvxIFWu2bYj8d3Vrsp2mVgDX_6niqAM9zNZZMElrkDmI_C5Ah10XwleVSJyFtYEsxHq2OtPdIARTvYe3IYN_YMVSB0-OV79Cmv9_uD6p5-xQjSGJ0_KhrcTxDRQzS8utQdOL6tnlnJxKYZvVQInmALAAf59dNBaOQPYatD-_61EZySF7Pu1sn1UJ9zfgTYAdzQhg"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN CONTENT WORKSPACE ==================== -->
+<main class="ml-72 flex-1 p-8 space-y-7 max-w-[1440px]">
+<!-- PAGE HEADER -->
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
+<div class="space-y-1.5">
+<div class="flex items-center gap-3">
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">College Information Explorer</h1>
+<!-- Verified Database Live Badge -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534]">
+<span class="w-2 h-2 rounded-full bg-[#166534] animate-pulse"></span>
+<span class="text-label-sm font-label-sm tracking-wide">Verified Database</span>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-3xl">
+          Instant access to certified MITS Gwalior schemes, circulars, syllabi, and departmental notices authenticated by the Registrar Office.
+        </p>
+</div>
+<!-- Quick Metrics Summary Pill -->
+<div class="flex items-center gap-4 bg-surface-container-lowest px-4 py-2.5 rounded-xl border border-outline-variant/30 shadow-sm shrink-0 self-start md:self-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">verified</span>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant leading-none">Last Audit</span>
+<span class="text-body-sm font-title-md font-semibold text-on-surface leading-tight mt-0.5">Today, 08:30 IST</span>
+</div>
+</div>
+<div class="h-6 w-px bg-outline-variant/20"></div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant leading-none">Cataloged</span>
+<span class="text-body-sm font-title-md font-semibold text-primary leading-tight mt-0.5">1,248 Docs</span>
+</div>
+</div>
+</section>
+<!-- SEARCH & ACTION CONTROLS PANEL -->
+<section class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/30 shadow-sm space-y-4">
+<!-- Full-width Search Bar with keyboard shortcut hint -->
+<div class="relative flex items-center w-full">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</div>
+<input class="w-full pl-11 pr-24 py-3 bg-surface-bright border border-outline-variant/40 rounded-xl text-on-surface placeholder:text-on-surface-variant font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all" placeholder="Search by ordinance title, circular number, course code (e.g. 210401), or faculty notice..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-3.5 flex items-center">
+<kbd class="hidden sm:inline-flex items-center gap-0.5 px-2 py-1 text-label-sm font-code-snippet text-on-surface-variant bg-surface-container border border-outline-variant/30 rounded-md shadow-2xs">
+            Press / to search
+          </kbd>
+</div>
+</div>
+<!-- Filters Row & Session/Sort Selectors -->
+<div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+<!-- Filter Pills List -->
+<div class="flex flex-wrap items-center gap-2">
+<!-- Active Filter Pill -->
+<button class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-xs transition-colors">
+            All Documents
+          </button>
+<!-- Inactive Filter Pills -->
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/40 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+            Admissions
+          </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/40 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+            Fees & Accounts
+          </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/40 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+            Courses & Syllabi
+          </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/40 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+            Examinations
+          </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/40 text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">
+            Student Services
+          </button>
+</div>
+<!-- Dropdown Selectors Cluster -->
+<div class="flex items-center gap-3">
+<!-- Session Dropdown -->
+<div class="flex items-center gap-1.5 bg-surface-bright border border-outline-variant/40 rounded-xl px-3 py-1.5 text-body-sm font-body-sm text-on-surface">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Session:</span>
+<select class="bg-transparent border-none p-0 pr-6 text-body-sm font-title-md font-semibold text-on-surface focus:ring-0 cursor-pointer">
+<option selected="" value="2024-25">2024-25</option>
+<option value="2023-24">2023-24</option>
+<option value="2022-23">2022-23</option>
+</select>
+</div>
+<!-- Sort Dropdown -->
+<div class="flex items-center gap-1.5 bg-surface-bright border border-outline-variant/40 rounded-xl px-3 py-1.5 text-body-sm font-body-sm text-on-surface">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Sort:</span>
+<select class="bg-transparent border-none p-0 pr-6 text-body-sm font-title-md font-semibold text-on-surface focus:ring-0 cursor-pointer">
+<option selected="" value="latest">Latest First</option>
+<option value="relevance">Relevance</option>
+<option value="alphabetical">Alphabetical</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+<!-- OFFICIAL DOCUMENT CARDS GRID (3 Columns Desktop) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- CARD 1: Revised B.Tech Scheme & Syllabus -->
+<article class="flex flex-col justify-between bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm hover:shadow-md transition-all duration-200">
+<div>
+<!-- Tag Header & Status Badge -->
+<div class="flex items-start justify-between gap-2 pb-3">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Courses</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">2024-25</span>
+</div>
+<!-- Verified & Active Green Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534] text-label-sm font-label-sm shrink-0">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Verified & Active</span>
+</span>
+</div>
+<!-- Title -->
+<h2 class="text-headline-sm font-headline-sm text-on-surface hover:text-primary transition-colors cursor-pointer leading-snug">
+            Revised B.Tech Scheme & Syllabus (Computer Science & AI - NEP 2020)
+          </h2>
+<!-- Excerpt / Context -->
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Ratified by Academic Council on July 2024. Includes comprehensive course modules, laboratory contact hours, and credit distribution for semesters III through VIII.
+          </p>
+</div>
+<!-- Footer & Meta Action -->
+<div class="pt-5 mt-4 border-t border-outline-variant/20 space-y-3.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">picture_as_pdf</span>
+              2.4 MB PDF
+            </span>
+<span>Updated 12 Aug 2024</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-primary hover:bg-tertiary text-on-primary font-label-md text-label-md transition-colors">
+<span>View Document</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</article>
+<!-- CARD 2: Tuition Fee Schedule -->
+<article class="flex flex-col justify-between bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm hover:shadow-md transition-all duration-200">
+<div>
+<!-- Tag Header & Status Badge -->
+<div class="flex items-start justify-between gap-2 pb-3">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Fees</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">2024-25</span>
+</div>
+<!-- Verified Official Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534] text-label-sm font-label-sm shrink-0">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Verified Official</span>
+</span>
+</div>
+<!-- Title -->
+<h2 class="text-headline-sm font-headline-sm text-on-surface hover:text-primary transition-colors cursor-pointer leading-snug">
+            Semester Tuition Fee Schedule & Payment Portal Guidelines
+          </h2>
+<!-- Excerpt / Context -->
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Detailed breakdown of institutional semester tuition, development fees, examination levies, and SBI Collect gateway clearance schedules with waiver norms.
+          </p>
+</div>
+<!-- Footer & Meta Action -->
+<div class="pt-5 mt-4 border-t border-outline-variant/20 space-y-3.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">account_balance_wallet</span>
+              Accounts Dept
+            </span>
+<span>Updated 28 Jun 2024</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant/40 text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors">
+<span>Open Circular</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+</article>
+<!-- CARD 3: Hostel Allocation -->
+<article class="flex flex-col justify-between bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm hover:shadow-md transition-all duration-200">
+<div>
+<!-- Tag Header & Status Badge -->
+<div class="flex items-start justify-between gap-2 pb-3">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Student Services</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">2024-25</span>
+</div>
+<!-- Compliance Status -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-bright border border-outline-variant/30 text-on-surface-variant text-label-sm font-label-sm shrink-0">
+<span class="material-symbols-outlined text-[14px]">domain</span>
+<span>Resident Admin</span>
+</span>
+</div>
+<!-- Title -->
+<h2 class="text-headline-sm font-headline-sm text-on-surface hover:text-primary transition-colors cursor-pointer leading-snug">
+            Hostel Allocation & Mess Committee Operational Notice
+          </h2>
+<!-- Excerpt / Context -->
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Merit list allocation criteria for Block 1, 2 & Girls Hostel wings. Guidelines on mess rebate protocols, curfew schedules, and anti-ragging affidavits.
+          </p>
+</div>
+<!-- Footer & Meta Action -->
+<div class="pt-5 mt-4 border-t border-outline-variant/20 space-y-3.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">badge</span>
+              Chief Warden
+            </span>
+<span>18 Jul 2024</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant/40 text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors">
+<span>View Notice</span>
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</article>
+<!-- CARD 4: Special Carry-over Exam Notification -->
+<article class="flex flex-col justify-between bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm hover:shadow-md transition-all duration-200">
+<div>
+<!-- Tag Header & Status Badge -->
+<div class="flex items-start justify-between gap-2 pb-3">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Examinations</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Past Session</span>
+</div>
+<!-- Amber Archived Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-label-sm font-label-sm shrink-0">
+<span class="material-symbols-outlined text-[14px]">inventory_2</span>
+<span>Archived / Read-Only</span>
+</span>
+</div>
+<!-- Title -->
+<h2 class="text-headline-sm font-headline-sm text-on-surface hover:text-primary transition-colors cursor-pointer leading-snug">
+            Special Carry-over Exam Notification (2022-23)
+          </h2>
+<!-- Excerpt with Warning Notice -->
+<div class="mt-2 space-y-2">
+<p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">
+              Final examination schedules for backlog papers under previous non-grading semester ordinances for enrolled 2019-2023 cohorts.
+            </p>
+<div class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-amber-50/70 border border-amber-200/50 text-amber-900 text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-[16px] text-amber-700 shrink-0">warning</span>
+<span class="truncate">Archived scheme. Superseded by 2024 Ordinance.</span>
+</div>
+</div>
+</div>
+<!-- Footer & Meta Action -->
+<div class="pt-5 mt-4 border-t border-outline-variant/20 space-y-3.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">folder_zip</span>
+              Exam Cell Records
+            </span>
+<span>05 Jan 2023</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors">
+<span>View Archive</span>
+<span class="material-symbols-outlined text-[16px]">history</span>
+</button>
+</div>
+</article>
+<!-- CARD 5: Research Internship Call -->
+<article class="flex flex-col justify-between bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm hover:shadow-md transition-all duration-200">
+<div>
+<!-- Tag Header & Status Badge -->
+<div class="flex items-start justify-between gap-2 pb-3">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Research & Labs</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">2024-25</span>
+</div>
+<!-- Live Grants Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534] text-label-sm font-label-sm shrink-0">
+<span class="material-symbols-outlined text-[14px]">psychology</span>
+<span>Grant Funded</span>
+</span>
+</div>
+<!-- Title -->
+<h2 class="text-headline-sm font-headline-sm text-on-surface hover:text-primary transition-colors cursor-pointer leading-snug">
+            Dean Academics Research Internship & AI Center of Excellence Call
+          </h2>
+<!-- Excerpt / Context -->
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Call for undergraduate research fellows in computational perception, embedded systems, and generative neural models. Includes stipend schedule and lab access protocols.
+          </p>
+</div>
+<!-- Footer & Meta Action -->
+<div class="pt-5 mt-4 border-t border-outline-variant/20 space-y-3.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">science</span>
+              Dean Academics
+            </span>
+<span>04 Sep 2024</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant/40 text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors">
+<span>Download Scheme</span>
+<span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</div>
+</article>
+<!-- CARD 6: B.Tech Mechanical Ordinance -->
+<article class="flex flex-col justify-between bg-surface-container-lowest rounded-xl border border-outline-variant/40 p-5 shadow-sm hover:shadow-md transition-all duration-200">
+<div>
+<!-- Tag Header & Status Badge -->
+<div class="flex items-start justify-between gap-2 pb-3">
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Courses</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">Ordinance</span>
+</div>
+<!-- Verified Official Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534] text-label-sm font-label-sm shrink-0">
+<span class="material-symbols-outlined text-[14px]">school</span>
+<span>Senate Ratified</span>
+</span>
+</div>
+<!-- Title -->
+<h2 class="text-headline-sm font-headline-sm text-on-surface hover:text-primary transition-colors cursor-pointer leading-snug">
+            B.Tech Mechanical Engineering Ordinance & Credit Framework
+          </h2>
+<!-- Excerpt / Context -->
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Autonomous curriculum ordinance outlining mandatory core credits, departmental elective clusters, industrial internship weightage, and graduation thresholds.
+          </p>
+</div>
+<!-- Footer & Meta Action -->
+<div class="pt-5 mt-4 border-t border-outline-variant/20 space-y-3.5">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">history_edu</span>
+              BoS Mech Dept
+            </span>
+<span>19 Jul 2024</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant/40 text-on-surface hover:bg-surface-container-low font-label-md text-label-md transition-colors">
+<span>View Ordinance</span>
+<span class="material-symbols-outlined text-[16px]">file_open</span>
+</button>
+</div>
+</article>
+</section>
+<!-- BOTTOM SYNC GUARANTEE BANNER -->
+<section class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-6">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] flex items-center justify-center shrink-0 text-[#166534]">
+<span class="material-symbols-outlined text-[26px]">encrypted</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="text-title-md font-title-md text-on-surface">Institutional Integrity & Cryptographic Guarantee</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm">SHA-256 Validated</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant max-w-4xl">
+            All records surfaced by CampusAssist AI College Explorer are programmatically synchronized with the Madhav Institute of Technology and Science (MITS) Registrar Document Vault. Every circular, examination notice, and syllabus scheme is verified via SHA-256 hash validation to prevent unauthorized amendments or outdated curricular guidance.
+          </p>
+</div>
+</div>
+<!-- Action & Verification Link -->
+<div class="flex items-center gap-3 shrink-0 w-full lg:w-auto justify-end">
+<div class="text-right hidden sm:block">
+<span class="block text-label-sm font-code-snippet text-primary font-medium">PKI-KEY: 0x9B4F...882A</span>
+<span class="block text-body-sm font-body-sm text-on-surface-variant">Validated Node: Registrar Internal</span>
+</div>
+<button class="px-4 py-2 rounded-xl border border-outline-variant/40 bg-surface-bright hover:bg-surface-container font-label-md text-label-md text-on-surface transition-colors flex items-center gap-2 shadow-2xs">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Verify Signature</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Interactive Keyboard / Filter Helper Microscript -->
+<script>
+    // Keyboard shortcut / listener to focus document search
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        const searchInput = document.querySelector('input[type="text"]');
+        if (searchInput) searchInput.focus();
+      }
+    });
+  </script>
+</body></html>

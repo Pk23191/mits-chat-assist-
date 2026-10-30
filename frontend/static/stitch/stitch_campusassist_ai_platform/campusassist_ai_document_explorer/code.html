@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusAssist AI - College Information Explorer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#0b1c30",
+            "error": "#ba1a1a",
+            "surface-bright": "#f8f9ff",
+            "inverse-surface": "#213145",
+            "tertiary-fixed-dim": "#4ae176",
+            "on-surface-variant": "#404940",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed": "#00210a",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#00662b",
+            "primary": "#004c22",
+            "secondary-fixed-dim": "#79db8d",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-container": "#007233",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#005323",
+            "inverse-on-surface": "#eaf1ff",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed": "#002109",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "tertiary-fixed": "#6bff8f",
+            "background": "#f8f9ff",
+            "surface-variant": "#d3e4fe",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#95f8a7",
+            "secondary-container": "#92f5a4",
+            "secondary": "#006d30",
+            "on-primary-container": "#93e0a2",
+            "on-background": "#0b1c30",
+            "surface-dim": "#cbdbf5",
+            "primary-container": "#166534",
+            "on-tertiary-container": "#54e97d",
+            "outline": "#707a6f",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#004b1e",
+            "on-primary-fixed": "#00210b",
+            "outline-variant": "#bfc9bd",
+            "on-tertiary-fixed-variant": "#005321",
+            "primary-fixed": "#a6f4b5",
+            "surface-tint": "#1f6c3a",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#8bd79b",
+            "inverse-primary": "#8bd79b",
+            "on-primary-fixed-variant": "#005226"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "code-snippet": ["JetBrains Mono"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "title-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "code-snippet": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen pb-28">
+<!-- TopAppBar Component (from Shared Components JSON) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile h-14 bg-surface-container-lowest dark:bg-surface shadow-sm dark:shadow-none">
+<div class="flex items-center gap-3">
+<button aria-label="Open institutional menu" class="text-on-surface hover:bg-surface-container-low transition-colors duration-150 p-1.5 rounded-lg active:scale-95 transition-transform duration-100 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed tracking-tight">CampusAssist AI</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-sm font-label-sm text-secondary">MITS Repository</span>
+</div>
+<button aria-label="College official registry" class="text-primary dark:text-primary-fixed hover:bg-surface-container-low transition-colors duration-150 p-1.5 rounded-lg active:scale-95 transition-transform duration-100 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas (Mobile-first College Information Explorer) -->
+<main class="w-full max-w-md mx-auto px-margin-mobile pt-space-md flex flex-col gap-space-md">
+<!-- Screen Title & Academic Context Banner -->
+<section class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface tracking-tight">College Explorer</h1>
+<span class="text-label-sm font-label-sm text-secondary bg-surface-container-highest px-2 py-0.5 rounded-md flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+          Verified DB
+        </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Instant access to certified MITS Gwalior schemes, circulars, and departmental notices.</p>
+</section>
+<!-- Search Input Bar -->
+<section class="relative w-full">
+<div class="relative flex items-center w-full bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 transition-all">
+<span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-xl" data-icon="search">search</span>
+<input class="w-full pl-10 pr-10 py-3 bg-transparent text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant/70 border-0 focus:ring-0 focus:outline-none" id="explorer-search-input" placeholder="Search syllabi, fee circulars, notices, ordinances..." type="text"/>
+<button aria-label="Clear query" class="absolute right-3 text-on-surface-variant/70 hover:text-on-surface p-1 rounded-md transition-colors" id="clear-search-btn" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+</section>
+<!-- Quick Category Chips Filter (Horizontal Scroll) -->
+<section class="overflow-x-auto no-scrollbar -mx-margin-mobile px-margin-mobile flex items-center gap-2 py-1">
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-primary text-on-primary shadow-sm hover:opacity-95 transition-all active:scale-95" data-category="All">
+        All
+      </button>
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" data-category="Admissions">
+        Admissions
+      </button>
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" data-category="Fees">
+        Fees
+      </button>
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" data-category="Courses">
+        Courses
+      </button>
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" data-category="Examinations">
+        Examinations
+      </button>
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" data-category="Academic Calendar">
+        Academic Calendar
+      </button>
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" data-category="Notices">
+        Notices
+      </button>
+<button class="filter-chip whitespace-nowrap px-3.5 py-1.5 rounded-full text-label-sm font-label-sm bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" data-category="Student Services">
+        Student Services
+      </button>
+</section>
+<!-- Filter and Sort Controls Bar -->
+<section class="flex items-center justify-between gap-2 pt-1 border-t border-outline-variant/60">
+<!-- Session Filter Dropdown Simulation -->
+<div class="relative flex-1">
+<label class="sr-only" for="session-select">Academic Session</label>
+<div class="flex items-center justify-between px-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-sm font-body-sm text-on-surface hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-base text-primary" data-icon="calendar_month">calendar_month</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Session:</span>
+<span class="font-medium text-on-surface text-label-sm font-label-sm truncate">2024-25</span>
+</div>
+<span class="material-symbols-outlined text-sm text-on-surface-variant ml-1" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Sort Selection Control -->
+<div class="relative flex-1">
+<label class="sr-only" for="sort-select">Sort by</label>
+<div class="flex items-center justify-between px-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-sm font-body-sm text-on-surface hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-base text-primary" data-icon="sort">sort</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Sort:</span>
+<span class="font-medium text-on-surface text-label-sm font-label-sm truncate">Latest</span>
+</div>
+<span class="material-symbols-outlined text-sm text-on-surface-variant ml-1" data-icon="tune">tune</span>
+</div>
+</div>
+</section>
+<!-- Active State Toggle Demo Helper (for Previewing Empty State) -->
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded-lg text-label-sm font-label-sm">
+<span class="text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="info">info</span>
+<span>Showing 4 institutional records</span>
+</span>
+<button class="text-primary font-semibold underline hover:opacity-80 transition-opacity" id="toggle-empty-demo" type="button">
+        Toggle Empty State
+      </button>
+</div>
+<!-- Document List Container -->
+<section class="flex flex-col gap-space-md" id="documents-feed">
+<!-- Card 1: Revised B.Tech Scheme & Syllabus -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm hover:shadow-md transition-all flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-high text-on-surface font-semibold">
+              Courses
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-low text-on-surface-variant">
+              Session 2024-25
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-[#F0FDF4] border border-[#BBF7D0] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              Status: Verified &amp; Active
+            </span>
+</div>
+<button aria-label="Bookmark document" class="text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-title-md font-title-md text-on-surface leading-snug">
+            Revised B.Tech Scheme &amp; Syllabus (Computer Science &amp; AI - NEP 2020)
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+            Includes updated evaluation scheme, laboratory modules, and credit matrix ratified by the Academic Council for CS &amp; AI cohorts.
+          </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/50 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>12 Aug 2024</span>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span>2.4 MB PDF</span>
+</span>
+</div>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-on-primary text-label-sm font-label-sm font-semibold hover:bg-secondary transition-all active:scale-95 shadow-sm" type="button">
+<span>View Document</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Card 2: Semester Tuition Fee Schedule -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm hover:shadow-md transition-all flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-high text-on-surface font-semibold">
+              Fees
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-low text-on-surface-variant">
+              Session 2024-25
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-[#F0FDF4] border border-[#BBF7D0] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+              Status: Verified Official
+            </span>
+</div>
+<button aria-label="Bookmark document" class="text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-title-md font-title-md text-on-surface leading-snug">
+            Semester Tuition Fee Schedule &amp; Portal Payment Guidelines
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+            Official breakdown of odd-semester institute dues, payment gateway procedures, installment approvals, and waiver deadlines.
+          </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/50 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>28 Jun 2024</span>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="domain">domain</span>
+<span>Accounts Dept</span>
+</span>
+</div>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-primary text-primary hover:bg-surface-container-low text-label-sm font-label-sm font-semibold transition-all active:scale-95" type="button">
+<span>Open Circular</span>
+<span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</article>
+<!-- Card 3: Hostel Allocation & Mess Committee Notice -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-sm hover:shadow-md transition-all flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-high text-on-surface font-semibold">
+              Student Services
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-low text-on-surface-variant">
+              Session 2024-25
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-[#F0FDF4] border border-[#BBF7D0] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              Status: Verified
+            </span>
+</div>
+<button aria-label="Bookmark document" class="text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-title-md font-title-md text-on-surface leading-snug">
+            Hostel Allocation &amp; Mess Committee Notice
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+            Room allotments for 2nd &amp; 3rd-year engineering students across Hostels A, B, and C with mandatory mess rebate forms.
+          </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/50 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>18 Jul 2024</span>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="meeting_room">meeting_room</span>
+<span>Chief Warden</span>
+</span>
+</div>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-low text-label-sm font-label-sm font-medium transition-all active:scale-95" type="button">
+<span>View Notice</span>
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+</button>
+</div>
+</article>
+<!-- Card 4: Unverified/Archived Notice Card for Contrast -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/80 p-4 opacity-90 shadow-sm hover:opacity-100 transition-all flex flex-col gap-3 relative overflow-hidden">
+<div class="absolute -right-12 top-4 rotate-45 bg-surface-container-high text-on-surface-variant text-[10px] font-bold py-0.5 px-12 text-center uppercase tracking-wider">
+          Archived
+        </div>
+<div class="flex items-start justify-between gap-3 pr-12">
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-high text-on-surface font-semibold">
+              Examinations
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container-low text-on-surface-variant">
+              Session 2022-23
+            </span>
+<span class="px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-amber-50 border border-amber-200 text-amber-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-amber-700" data-icon="history_toggle_off">history_toggle_off</span>
+              Archived / Past Session
+            </span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-title-md font-title-md text-on-surface/85 leading-snug">
+            Special Carry-over Exam Notification (2022-23)
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">
+            Superseded rules regarding supplementary grading and backlog test scheduling. Maintained for institutional audit only.
+          </p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/40 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>15 Dec 2022</span>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1 text-amber-800">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span>Read-Only</span>
+</span>
+</div>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant text-label-sm font-label-sm hover:bg-surface-container transition-all active:scale-95" type="button">
+<span>View Archive</span>
+<span class="material-symbols-outlined text-sm" data-icon="history">history</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Empty State Section (Toggled dynamically or via reset) -->
+<section class="hidden flex-col items-center justify-center p-8 bg-surface-container-lowest rounded-2xl border border-dashed border-outline-variant text-center my-4 animate-fade-in" id="empty-state-view">
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-3xl" data-icon="search_off">search_off</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface mb-1">No circulars found matching criteria</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant max-w-xs mb-5">
+        We couldn't locate active records matching your keywords and session filters. Try adjusting your query or resetting all active categories.
+      </p>
+<div class="flex flex-col sm:flex-row gap-2 w-full max-w-xs">
+<button class="w-full px-4 py-2.5 rounded-lg bg-primary text-on-primary text-label-md font-label-md font-semibold hover:bg-secondary transition-all active:scale-95 shadow-sm" id="reset-filters-btn" type="button">
+          Reset All Filters
+        </button>
+<button class="w-full px-4 py-2.5 rounded-lg border border-outline-variant bg-surface text-on-surface text-label-md font-label-md hover:bg-surface-container-low transition-all active:scale-95 flex items-center justify-center gap-1.5" id="ask-ai-fallback-btn" type="button">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="smart_toy">smart_toy</span>
+<span>Ask CampusAssist AI</span>
+</button>
+</div>
+</section>
+<!-- Institutional Citation Footnote Notice -->
+<footer class="mt-2 p-3 bg-surface-container-lowest rounded-xl border border-outline-variant/60 flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-lg shrink-0 mt-0.5" data-icon="policy">policy</span>
+<p class="leading-tight">
+        All documents are synchronized directly with Madhav Institute of Technology &amp; Science (MITS) Gwalior registrar notices. Verified tags validate cryptographic registry signatures.
+      </p>
+</footer>
+</main>
+<!-- BottomNavBar Component (from Shared Components JSON) -->
+<!-- Active state strictly applied to "Explorer" per task requirements -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-space-xs bg-surface-container-lowest dark:bg-surface shadow-sm dark:shadow-none border-t border-outline-variant/40">
+<!-- Tab 1: Chat (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="forum">forum</span>
+<span class="text-label-sm font-label-sm mt-0.5">Chat</span>
+</a>
+<!-- Tab 2: Explorer (ACTIVE per screen intent) -->
+<a aria-current="page" class="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-xl px-3 py-1 active:scale-95 transition-transform duration-100 shadow-sm" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-label-sm font-label-sm font-semibold mt-0.5">Explorer</span>
+</a>
+<!-- Tab 3: Recent (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="history">history</span>
+<span class="text-label-sm font-label-sm mt-0.5">Recent</span>
+</a>
+<!-- Tab 4: Settings (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="settings">settings</span>
+<span class="text-label-sm font-label-sm mt-0.5">Settings</span>
+</a>
+</nav>
+<!-- Interactive Logic for Explorer Prototype -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('explorer-search-input');
+      const clearBtn = document.getElementById('clear-search-btn');
+      const docFeed = document.getElementById('documents-feed');
+      const emptyState = document.getElementById('empty-state-view');
+      const toggleEmptyDemoBtn = document.getElementById('toggle-empty-demo');
+      const resetFiltersBtn = document.getElementById('reset-filters-btn');
+      const filterChips = document.querySelectorAll('.filter-chip');
+
+      // Clear search input action
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchInput.focus();
+        showDocuments();
+      });
+
+      // Quick filter chips click handling
+      filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          filterChips.forEach(c => {
+            c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+            c.classList.add('bg-surface-container-lowest', 'border', 'border-outline-variant', 'text-on-surface-variant');
+          });
+          chip.classList.remove('bg-surface-container-lowest', 'border', 'border-outline-variant', 'text-on-surface-variant');
+          chip.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+
+          // If clicking "Examinations", simulate zero matches to showcase empty state gracefully
+          if (chip.getAttribute('data-category') === 'Academic Calendar') {
+            showEmptyState();
+          } else {
+            showDocuments();
+          }
+        });
+      });
+
+      function showEmptyState() {
+        docFeed.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+      }
+
+      function showDocuments() {
+        docFeed.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+      }
+
+      // Demo Toggle Button
+      toggleEmptyDemoBtn.addEventListener('click', () => {
+        if (docFeed.classList.contains('hidden')) {
+          showDocuments();
+        } else {
+          showEmptyState();
+        }
+      });
+
+      // Reset Filters Action
+      resetFiltersBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterChips.forEach((c, idx) => {
+          if (idx === 0) {
+            c.classList.remove('bg-surface-container-lowest', 'border', 'border-outline-variant', 'text-on-surface-variant');
+            c.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+          } else {
+            c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+            c.classList.add('bg-surface-container-lowest', 'border', 'border-outline-variant', 'text-on-surface-variant');
+          }
+        });
+        showDocuments();
+      });
+    });
+  </script>
+</body></html>

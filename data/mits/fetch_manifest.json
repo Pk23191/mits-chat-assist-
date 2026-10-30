@@ -1,0 +1,38 @@
+{
+  "fetched_urls": {
+    "https://web.mitsgwalior.in/admission/faqs": {
+      "document_id": "mits-admission_faqs-548f964604",
+      "title": "FAQs - MITS Gwalior",
+      "category": "admissions",
+      "fetched_at": "2026-10-30T09:49:42.156712+00:00",
+      "content_hash": "39db6edaa353932a06cd828368302ccfc03ca3b1181e008ec5fe1e6254bb8c5a",
+      "byte_size": 136887
+    },
+    "https://web.mitsgwalior.in/academics/academic-calendar": {
+      "document_id": "mits-academics_academic-calendar-9a77f83deb",
+      "title": "Academic Calendar - MITS Gwalior",
+      "category": "academic_calendar",
+      "fetched_at": "2026-10-30T09:50:08.210124+00:00",
+      "content_hash": "37ad62a62c823f0ff6f9797e81ad4d4dbcca719ff8b58b1c7bd64542c817c4e3",
+      "byte_size": 110286
+    }
+  },
+  "content_hashes": {
+    "39db6edaa353932a06cd828368302ccfc03ca3b1181e008ec5fe1e6254bb8c5a": {
+      "document_id": "mits-admission_faqs-548f964604",
+      "title": "FAQs - MITS Gwalior",
+      "category": "admissions",
+      "fetched_at": "2026-10-30T09:49:42.156712+00:00",
+      "content_hash": "39db6edaa353932a06cd828368302ccfc03ca3b1181e008ec5fe1e6254bb8c5a",
+      "byte_size": 136887
+    },
+    "37ad62a62c823f0ff6f9797e81ad4d4dbcca719ff8b58b1c7bd64542c817c4e3": {
+      "document_id": "mits-academics_academic-calendar-9a77f83deb",
+      "title": "Academic Calendar - MITS Gwalior",
+      "category": "academic_calendar",
+      "fetched_at": "2026-10-30T09:50:08.210124+00:00",
+      "content_hash": "37ad62a62c823f0ff6f9797e81ad4d4dbcca719ff8b58b1c7bd64542c817c4e3",
+      "byte_size": 110286
+    }
+  }
+}

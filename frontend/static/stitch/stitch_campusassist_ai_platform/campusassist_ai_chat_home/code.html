@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusAssist AI - AI Chat Home</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#0b1c30",
+            "error": "#ba1a1a",
+            "surface-bright": "#f8f9ff",
+            "inverse-surface": "#213145",
+            "tertiary-fixed-dim": "#4ae176",
+            "on-surface-variant": "#404940",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed": "#00210a",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#00662b",
+            "primary": "#004c22",
+            "secondary-fixed-dim": "#79db8d",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-container": "#007233",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#005323",
+            "inverse-on-surface": "#eaf1ff",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed": "#002109",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "tertiary-fixed": "#6bff8f",
+            "background": "#f8f9ff",
+            "surface-variant": "#d3e4fe",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#95f8a7",
+            "secondary-container": "#92f5a4",
+            "secondary": "#006d30",
+            "on-primary-container": "#93e0a2",
+            "on-background": "#0b1c30",
+            "surface-dim": "#cbdbf5",
+            "primary-container": "#166534",
+            "on-tertiary-container": "#54e97d",
+            "outline": "#707a6f",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#004b1e",
+            "on-primary-fixed": "#00210b",
+            "outline-variant": "#bfc9bd",
+            "on-tertiary-fixed-variant": "#005321",
+            "primary-fixed": "#a6f4b5",
+            "surface-tint": "#1f6c3a",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#8bd79b",
+            "inverse-primary": "#8bd79b",
+            "on-primary-fixed-variant": "#005226"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "code-snippet": ["JetBrains Mono"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "title-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "code-snippet": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar: Mobile Header Component -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile h-14 bg-surface-container-lowest dark:bg-surface shadow-sm dark:shadow-none">
+<div class="flex items-center gap-2.5">
+<button aria-label="Open Navigation Drawer" class="p-1 rounded-lg text-primary hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-100 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed leading-tight tracking-tight">CampusAssist AI</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium tracking-tight">MITS Gwalior</span>
+</div>
+</div>
+<!-- Right Profile / Institutional Badge -->
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container-low border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="account_balance">account_balance</span>
+<div class="relative w-6 h-6 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Official portrait of an engineering undergraduate student wearing a crisp institutional blazer with warm academic library lighting in background, natural aesthetic, collegiate setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAWIO5Ud4PDQ3XnBu_nXtFYMqAnRVjfAcLcaYYXyDgghP5ZtNPqM3vHisvXfZGSSmKdj8At5HxnE46g_g7yNIgvQVpe3g51SG10Pilt-3oHGCy434MeKs1YhA3OMhWU4_fXdRFvdatBLtFfe5wandQ95FwJZylDU8FCyznz1Kd90wPyIqY-mGN00KkfADIH9ObRkpKIALyYuQRmokafOPI_gfaDAnkmZMjDN5MqEk"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas (Scrollable Mobile Feed) -->
+<main class="flex-1 w-full max-w-md mx-auto px-margin-mobile pt-5 pb-44 flex flex-col gap-6">
+<!-- Hero Welcome Section -->
+<section class="flex flex-col items-start gap-2.5 pt-1">
+<!-- Verified Badge -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Verified Academic Assistant • MITS Edition</span>
+</div>
+<!-- Hero Headline -->
+<h1 class="font-display-hero-mobile text-display-hero-mobile text-on-surface tracking-tight font-extrabold mt-1">
+        Your Campus. Your Questions. <span class="text-primary underline decoration-secondary-container decoration-4 underline-offset-4">One Assistant.</span>
+</h1>
+<!-- Supporting Subhead -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Get help finding official college circulars, academic calendar updates, syllabus records, and campus resources.
+      </p>
+<!-- Institutional Status Ribbon -->
+<div class="w-full mt-2 p-3 rounded-xl bg-surface-container-lowest border border-outline-variant shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Live sync with MITS Registrar &amp; Dean Academics</span>
+</div>
+<span class="font-code-snippet text-code-snippet text-on-surface-variant">2024-25 Vault</span>
+</div>
+</section>
+<!-- Quick Suggestion Prompt Cards Bento Grid -->
+<section class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="auto_awesome">auto_awesome</span>
+<h2 class="font-title-md text-title-md text-on-surface font-semibold">Frequently Consulted Inquiries</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Tap to ask</span>
+</div>
+<!-- 2x2 Bento Prompt Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- Prompt Card 1 -->
+<button class="group text-left p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary shadow-sm hover:shadow-md transition-all duration-150 active:scale-98 flex flex-col justify-between min-h-[110px]" type="button">
+<div class="flex items-start justify-between w-full gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-secondary-container text-on-secondary-container">
+              Academics
+            </span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]" data-icon="north_east">north_east</span>
+</div>
+<p class="font-body-md text-body-md font-medium text-on-surface group-hover:text-primary transition-colors mt-2 leading-snug">
+            What undergraduate engineering courses does MITS offer?
+          </p>
+</button>
+<!-- Prompt Card 2 -->
+<button class="group text-left p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary shadow-sm hover:shadow-md transition-all duration-150 active:scale-98 flex flex-col justify-between min-h-[110px]" type="button">
+<div class="flex items-start justify-between w-full gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-surface-container text-on-surface-variant">
+              Calendar &amp; Exams
+            </span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]" data-icon="north_east">north_east</span>
+</div>
+<p class="font-body-md text-body-md font-medium text-on-surface group-hover:text-primary transition-colors mt-2 leading-snug">
+            Where can I find the 2024-25 academic calendar &amp; exam schedule?
+          </p>
+</button>
+<!-- Prompt Card 3 -->
+<button class="group text-left p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary shadow-sm hover:shadow-md transition-all duration-150 active:scale-98 flex flex-col justify-between min-h-[110px]" type="button">
+<div class="flex items-start justify-between w-full gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-surface-container text-on-surface-variant">
+              Admissions &amp; Fee
+            </span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]" data-icon="north_east">north_east</span>
+</div>
+<p class="font-body-md text-body-md font-medium text-on-surface group-hover:text-primary transition-colors mt-2 leading-snug">
+            Help me find official B.Tech admission criteria and fee guidelines.
+          </p>
+</button>
+<!-- Prompt Card 4 -->
+<button class="group text-left p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary shadow-sm hover:shadow-md transition-all duration-150 active:scale-98 flex flex-col justify-between min-h-[110px]" type="button">
+<div class="flex items-start justify-between w-full gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-secondary-container text-on-secondary-container">
+              Circulars
+            </span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]" data-icon="north_east">north_east</span>
+</div>
+<p class="font-body-md text-body-md font-medium text-on-surface group-hover:text-primary transition-colors mt-2 leading-snug">
+            Show me the latest official college notices &amp; circulars.
+          </p>
+</button>
+</div>
+</section>
+<!-- Source Evidence & Integrity Micro-Card -->
+<section class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant flex items-start gap-3">
+<div class="p-2 rounded-lg bg-surface-container-lowest text-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="menu_book">menu_book</span>
+</div>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md font-semibold text-on-surface">Departmental Syllabus Vault Connected</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          Indexed curriculum files for CSE, IT, ECE, Mechanical, Civil &amp; AI-ML branches according to RGPV &amp; MITS Autonomous Regulations.
+        </p>
+</div>
+</section>
+</main>
+<!-- Fixed Bottom Interaction Region: Chat Input + Disclaimer + BottomNavBar -->
+<div class="fixed bottom-0 left-0 w-full z-40 bg-gradient-to-t from-surface via-surface/95 to-transparent pt-3 pb-16 pointer-events-none">
+<div class="max-w-md mx-auto px-margin-mobile pointer-events-auto">
+<!-- Conversational Master Input Card -->
+<div class="p-2 rounded-2xl bg-surface-container-lowest border border-outline-variant shadow-lg flex flex-col gap-1.5 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+<div class="flex items-center gap-2 px-1">
+<input class="flex-1 bg-transparent border-0 py-2 px-1 text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant placeholder:font-normal focus:ring-0 focus:outline-none" placeholder="Ask about courses, exams, circulars, fees..." type="text"/>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-outline-variant/40 px-1">
+<div class="flex items-center gap-1">
+<button aria-label="Attach Document" class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="attach_file">attach_file</span>
+</button>
+<button aria-label="Voice Input" class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="mic">mic</span>
+</button>
+</div>
+<!-- Primary Send Button -->
+<button aria-label="Send Query" class="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-on-primary hover:bg-secondary transition-colors duration-150 active:scale-95 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<!-- Source transparency & privacy disclaimer note -->
+<div class="flex items-center justify-center gap-1.5 pt-2 pb-1 text-center">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="policy">policy</span>
+<p class="font-body-sm text-[11px] text-on-surface-variant leading-none">
+          Note: AI retrieves documents from official MITS portals. Answers cite verified campus sources.
+        </p>
+</div>
+</div>
+</div>
+<!-- Shared BottomNavBar Component -->
+<!-- Active Tab: Chat (Resolved via primary intent: AI Chat Home) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-space-xs bg-surface-container-lowest dark:bg-surface shadow-sm dark:shadow-none">
+<!-- Tab 1: Chat (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-xl px-3 py-1 active:scale-95 transition-transform duration-100" href="#chat">
+<span class="material-symbols-outlined text-[20px]" data-icon="forum" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-label-sm text-label-sm font-semibold">Chat</span>
+</a>
+<!-- Tab 2: Explorer -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-100" href="#explorer">
+<span class="material-symbols-outlined text-[20px]" data-icon="menu_book">menu_book</span>
+<span class="font-label-sm text-label-sm">Explorer</span>
+</a>
+<!-- Tab 3: Recent -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-100" href="#recent">
+<span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
+<span class="font-label-sm text-label-sm">Recent</span>
+</a>
+<!-- Tab 4: Settings -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-3 py-1 hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-100" href="#settings">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+</body></html>

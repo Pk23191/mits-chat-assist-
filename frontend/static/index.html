@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>CampusAssist AI - MITS Gwalior Portal</title>
+  
+  <!-- Material Symbols Outlined font -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  
+  <!-- Google Fonts: Inter & Plus Jakarta Sans & JetBrains Mono -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/styles.css"/>
+  
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-container": "#54e97d",
+            "secondary-fixed-dim": "#79db8d",
+            "primary-container": "#166534",
+            "surface-variant": "#d3e4fe",
+            "tertiary": "#004b1e",
+            "on-secondary-container": "#007233",
+            "inverse-primary": "#8bd79b",
+            "on-surface": "#0b1c30",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary-container": "#00662b",
+            "on-secondary-fixed-variant": "#005323",
+            "surface-container-high": "#dce9ff",
+            "surface-container-low": "#eff4ff",
+            "on-primary-container": "#93e0a2",
+            "surface-container-highest": "#d3e4fe",
+            "surface-container": "#e5eeff",
+            "on-tertiary-fixed-variant": "#005321",
+            "outline-variant": "#bfc9bd",
+            "secondary-container": "#92f5a4",
+            "on-tertiary-fixed": "#002109",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#005226",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed-dim": "#8bd79b",
+            "on-error": "#ffffff",
+            "surface": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#404940",
+            "inverse-surface": "#213145",
+            "primary-fixed": "#a6f4b5",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#4ae176",
+            "surface-container-lowest": "#ffffff",
+            "on-background": "#0b1c30",
+            "background": "#f8f9ff",
+            "outline": "#707a6f",
+            "tertiary-fixed": "#6bff8f",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#00210a",
+            "primary": "#004c22",
+            "secondary": "#006d30",
+            "surface-tint": "#1f6c3a",
+            "on-primary": "#ffffff",
+            "on-primary-fixed": "#00210b",
+            "secondary-fixed": "#95f8a7"
+          },
+          fontFamily: {
+            "body-sm": ["Inter", "sans-serif"],
+            "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "title-md": ["Inter", "sans-serif"],
+            "display-hero": ["Plus Jakarta Sans", "sans-serif"],
+            "code-snippet": ["JetBrains Mono", "monospace"],
+            "label-sm": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #bfc9bd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex selection:bg-secondary-fixed selection:text-primary">
+
+  <!-- ========================================== -->
+  <!-- LEFT PERSISTENT SIDEBAR                   -->
+  <!-- ========================================== -->
+  <aside class="fixed top-0 left-0 h-screen w-72 flex flex-col justify-between z-40 bg-surface-container-lowest border-r border-outline-variant/30 shadow-sm">
+    <div class="h-full flex flex-col px-4 py-5 overflow-y-auto custom-scroll">
+      
+      <!-- Institutional Branding Header -->
+      <div class="flex items-center gap-3 pb-5 mb-3 border-b border-outline-variant/20 cursor-pointer" onclick="navigateTo('chat')">
+        <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm ring-2 ring-primary/10">
+          <span class="material-symbols-outlined text-[24px]">school</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="text-title-md font-bold text-primary truncate leading-tight">CampusAssist AI</span>
+          <span class="text-body-sm text-on-surface-variant truncate">MITS Gwalior Portal</span>
+        </div>
+      </div>
+
+      <!-- New Chat Button (CTA) -->
+      <div class="mb-5">
+        <button id="newChatBtn" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-on-primary font-semibold text-body-md shadow-sm hover:bg-tertiary-container transition-all active:scale-[0.99] duration-150">
+          <span class="material-symbols-outlined text-[20px]">add</span>
+          <span>New Chat</span>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="space-y-1 mb-5" id="sidebarNav">
+        <!-- AI Chat -->
+        <a id="nav-chat" href="#chat" onclick="navigateTo('chat')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-low text-primary font-semibold text-body-md border-l-4 border-primary">
+          <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">chat</span>
+          <span>AI Chat</span>
+        </a>
+        <!-- College Explorer -->
+        <a id="nav-explorer" href="#explorer" onclick="navigateTo('explorer')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 text-body-md transition-colors">
+          <span class="material-symbols-outlined text-[20px]">account_balance</span>
+          <span>College Explorer</span>
+        </a>
+        <!-- Syllabus Vault -->
+        <a id="nav-syllabus" href="#syllabus" onclick="navigateTo('syllabus')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 text-body-md transition-colors">
+          <span class="material-symbols-outlined text-[20px]">menu_book</span>
+          <span>Syllabus Vault</span>
+        </a>
+        <!-- Admin Dashboard -->
+        <a id="nav-admin" href="#admin" onclick="navigateTo('admin')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 text-body-md transition-colors">
+          <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+          <span>Admin Dashboard</span>
+        </a>
+      </nav>
+
+      <!-- Recent Sessions Rail Section -->
+      <div class="flex-1 min-h-0 pt-3 border-t border-outline-variant/20">
+        <div class="flex items-center justify-between px-3 mb-2">
+          <span class="text-[11px] font-semibold text-outline tracking-wider uppercase">Recent Sessions</span>
+          <span class="material-symbols-outlined text-[16px] text-outline cursor-pointer hover:text-primary transition-colors">history</span>
+        </div>
+        <div class="space-y-0.5 overflow-y-auto max-h-44 pr-1 custom-scroll" id="recentSessions">
+          <button class="w-full text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low text-body-sm truncate flex items-center gap-2 group transition-colors" onclick="submitQuery('What undergraduate courses does MITS offer?')">
+            <span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">chat_bubble_outline</span>
+            <span class="truncate">MITS UG Engineering Courses</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low text-body-sm truncate flex items-center gap-2 group transition-colors" onclick="submitQuery('Tell me about MITS academic calendar and examinations.')">
+            <span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">chat_bubble_outline</span>
+            <span class="truncate">Academic Calendar & Exams</span>
+          </button>
+          <button class="w-full text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low text-body-sm truncate flex items-center gap-2 group transition-colors" onclick="submitQuery('What are the admission rules and eligibility for MITS?')">
+            <span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary transition-colors">chat_bubble_outline</span>
+            <span class="truncate">Admission & Eligibility</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- User Profile & Footer -->
+      <div class="pt-4 border-t border-outline-variant/20 mt-2 space-y-2">
+        <div class="flex items-center gap-3 p-2 rounded-xl bg-surface-container-low border border-outline-variant/30">
+          <div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold text-body-sm ring-1 ring-primary/20">
+            MG
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-body-sm font-semibold text-on-surface truncate">MITS Student Portal</p>
+            <p class="text-[11px] text-outline truncate" id="statusBadgeText">System Ready</p>
+          </div>
+          <span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed-dim" id="profileStatusDot"></span>
+        </div>
+        <div class="flex items-center justify-between px-2 pt-1 text-[12px] text-outline">
+          <a class="flex items-center gap-1 hover:text-primary transition-colors" href="/docs" target="_blank">
+            <span class="material-symbols-outlined text-[15px]">help</span>
+            <span>API Docs</span>
+          </a>
+          <span class="text-[11px] text-outline">MITS Gwalior &copy; 2026</span>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ========================================== -->
+  <!-- MAIN CANVAS WRAPPER (pushed 72 from left)  -->
+  <!-- ========================================== -->
+  <div class="ml-72 flex-1 min-h-screen flex flex-col bg-background">
+    
+    <!-- Persistent Top Navigation Bar -->
+    <header class="sticky top-0 h-16 w-full z-30 bg-surface-container-lowest border-b border-outline-variant/30 shadow-sm">
+      <div class="flex justify-between items-center h-full px-8 max-w-full">
+        
+        <!-- Left: Portal Sync Status Pill & Circular Ticker -->
+        <div class="flex items-center gap-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-secondary-fixed-dim/40 text-primary">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed-dim opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary" id="syncDot"></span>
+            </span>
+            <span class="text-label-sm font-medium" id="syncText">MITS Gwalior Portal Sync: Connected</span>
+          </div>
+          
+          <div class="hidden xl:flex items-center gap-2 text-body-sm text-on-surface-variant bg-surface-bright px-3 py-1 rounded-lg border border-outline-variant/20">
+            <span class="material-symbols-outlined text-secondary text-[16px]">campaign</span>
+            <span class="font-medium text-primary">Official Sources:</span>
+            <span class="truncate max-w-sm text-outline">Autonomous Engineering · Gwalior, MP</span>
+          </div>
+        </div>
+
+        <!-- Right Side: Secondary Actions -->
+        <div class="flex items-center gap-3">
+          <button onclick="checkHealth()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-body-sm rounded-lg text-primary border border-outline-variant/50 hover:bg-surface-container-low transition-colors duration-150">
+            <span class="material-symbols-outlined text-[16px]">sync</span>
+            <span>Check Health</span>
+          </button>
+          
+          <button onclick="navigateTo('admin')" class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors" title="Admin Settings">
+            <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+          </button>
+          
+          <a href="/docs" target="_blank" class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors" title="FastAPI Interactive Docs">
+            <span class="material-symbols-outlined text-[20px]">api</span>
+          </a>
+
+          <div class="h-6 w-px bg-outline-variant/30 mx-1"></div>
+
+          <!-- Institutional Crest Avatar -->
+          <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-body-sm ring-2 ring-primary/20">
+            MITS
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: CHAT HOME VIEW (Default Hero)     -->
+    <!-- ========================================== -->
+    <main id="view-chat-home" class="flex-1 flex flex-col justify-between max-w-5xl w-full mx-auto px-6 py-10 transition-all duration-200">
+      
+      <!-- Top Center: Hero Greeting & Subtext -->
+      <section class="text-center pt-4 pb-8 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-primary text-label-sm mx-auto shadow-xs">
+          <span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+          <span>Official Madhav Institute of Technology &amp; Science AI Assistant</span>
+        </div>
+        <h1 class="text-display-hero text-on-surface font-extrabold tracking-tight max-w-3xl mx-auto text-4xl lg:text-5xl leading-tight">
+          Your Campus. Your Questions.<br/>
+          <span class="text-primary underline decoration-secondary-container decoration-4 underline-offset-8">One Assistant.</span>
+        </h1>
+        <p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+          Get direct, grounded answers from official MITS Gwalior circulars, admissions guides, academic schemes, and examination rules.
+        </p>
+      </section>
+
+      <!-- Centerpiece: Chat Input Box -->
+      <section class="w-full max-w-3xl mx-auto mb-8">
+        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/50 shadow-md hover:shadow-lg focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all duration-200 p-3">
+          <div class="px-2 pt-1 pb-2">
+            <textarea id="homePromptInput" class="w-full resize-none border-0 bg-transparent p-0 text-on-surface placeholder:text-outline text-body-md focus:ring-0 focus:outline-none leading-relaxed" placeholder="Ask anything about courses, admissions, exams, or circulars..." rows="3"></textarea>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-outline-variant/20 px-1">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-low text-outline text-code-snippet font-code-snippet text-xs">
+                <span class="material-symbols-outlined text-[13px]">keyboard_return</span>
+                <span>Enter to ask</span>
+              </span>
+              <span class="text-xs text-outline hidden sm:inline">RAG Grounded in ChromaDB</span>
+            </div>
+            <button id="homeSendBtn" onclick="handleHomeSend()" class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center hover:bg-primary active:scale-95 transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[20px]">arrow_upward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Query Helper Pills Under Input -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-3 text-body-sm text-outline">
+          <span class="text-label-sm font-semibold text-on-surface-variant">Popular queries:</span>
+          <button class="hover:text-primary underline decoration-dotted transition-colors" onclick="submitQuery('What undergraduate courses are offered at MITS Gwalior?')">B.Tech courses</button>
+          <span>&middot;</span>
+          <button class="hover:text-primary underline decoration-dotted transition-colors" onclick="submitQuery('What is the admission procedure and eligibility for MITS?')">Admission process</button>
+          <span>&middot;</span>
+          <button class="hover:text-primary underline decoration-dotted transition-colors" onclick="submitQuery('Where can I find the MITS academic calendar?')">Academic calendar</button>
+        </div>
+      </section>
+
+      <!-- 2x2 Clickable Bento Prompt Cards Grid -->
+      <section class="w-full max-w-3xl mx-auto mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Card 1: Academics -->
+          <div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="submitQuery('What undergraduate engineering courses does MITS offer?')">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-semibold">
+                  <span class="material-symbols-outlined text-[14px]">school</span>
+                  Academics
+                </span>
+                <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+              </div>
+              <p class="text-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                What undergraduate engineering courses does MITS offer?
+              </p>
+              <p class="text-body-sm text-on-surface-variant mt-1">
+                NBA accredited branches, intake capacities & autonomous curricula.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2: Calendar & Exams -->
+          <div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="submitQuery('What is the schedule and rules for semester examinations at MITS?')">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-semibold">
+                  <span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                  Exams & Calendar
+                </span>
+                <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+              </div>
+              <p class="text-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                What is the schedule and rules for semester examinations?
+              </p>
+              <p class="text-body-sm text-on-surface-variant mt-1">
+                Mid-terms, practicals, end-semester evaluation schemes & guidelines.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3: Admissions -->
+          <div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="submitQuery('How do admissions work at MITS Gwalior and what is the eligibility criteria?')">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-semibold">
+                  <span class="material-symbols-outlined text-[14px]">account_balance</span>
+                  Admissions
+                </span>
+                <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+              </div>
+              <p class="text-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                How do admissions work at MITS Gwalior?
+              </p>
+              <p class="text-body-sm text-on-surface-variant mt-1">
+                JEE Main cutoff guidance, MP DTE counselling process & eligibility.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 4: Library & Facilities -->
+          <div class="group p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/40 hover:border-primary/40 hover:shadow-md cursor-pointer transition-all duration-200 flex flex-col justify-between" onclick="submitQuery('What campus facilities, library, and hostel resources are available at MITS?')">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-primary text-label-sm font-semibold">
+                  <span class="material-symbols-outlined text-[14px]">local_library</span>
+                  Campus & Hostel
+                </span>
+                <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-[18px]">north_east</span>
+              </div>
+              <p class="text-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                What campus facilities, library, and hostel resources exist?
+              </p>
+              <p class="text-body-sm text-on-surface-variant mt-1">
+                Central library access, hostel mess policies, Wi-Fi & laboratories.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: ACTIVE CONVERSATION & SOURCES VIEW -->
+    <!-- ========================================== -->
+    <main id="view-conversation" class="hidden flex-1 flex flex-col max-w-[1440px] px-8 py-6 pb-36">
+      
+      <!-- Sub-Header & Thread Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 border-b border-outline-variant/30">
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-headline-sm font-bold text-on-surface tracking-tight" id="activeQueryTitle">Academic Inquiry</h1>
+            <span class="px-2.5 py-0.5 rounded-full text-label-sm bg-surface-container text-primary font-semibold border border-outline-variant/30">Official MITS Records</span>
+          </div>
+          <p class="text-body-sm text-on-surface-variant mt-0.5" id="activeQuerySubtitle">Query grounded in ChromaDB Vector Knowledge Base</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copyAnswerText()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:bg-surface-container-low text-body-sm transition-colors shadow-xs">
+            <span class="material-symbols-outlined text-[16px]">content_copy</span>
+            <span>Copy Answer</span>
+          </button>
+          <button onclick="regenerateLastAnswer()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:bg-surface-container-low text-body-sm transition-colors shadow-xs">
+            <span class="material-symbols-outlined text-[16px]">refresh</span>
+            <span>Regenerate</span>
+          </button>
+          <button onclick="startNewChat()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-error hover:bg-error-container/20 text-body-sm transition-colors shadow-xs">
+            <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
+            <span>Clear</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Thread Stream -->
+      <div class="space-y-8 flex-1" id="chatThread">
+        
+        <!-- Student Query Bubble (populated dynamically) -->
+        <div class="flex justify-end gap-3 max-w-4xl ml-auto">
+          <div class="flex flex-col items-end max-w-2xl">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-label-sm text-on-surface-variant">Student Question</span>
+              <span class="text-body-sm text-outline" id="queryTimestamp">Just now</span>
+            </div>
+            <div class="bg-[#F1F5F9] text-on-surface p-4 rounded-2xl rounded-tr-xs border border-outline-variant/30 shadow-xs">
+              <p class="text-body-lg text-[#0F172A] leading-relaxed" id="userQueryText">
+                Loading query...
+              </p>
+            </div>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-primary ring-1 ring-outline-variant/40 shrink-0 mt-1">
+            ST
+          </div>
+        </div>
+
+        <!-- Loading State Indicator -->
+        <div id="loadingIndicator" class="hidden flex justify-start gap-3 max-w-5xl mr-auto">
+          <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm mt-1 animate-pulse">
+            <span class="material-symbols-outlined text-[22px]">smart_toy</span>
+          </div>
+          <div class="flex-1 bg-surface-container-lowest rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex items-center gap-4">
+            <div class="w-6 h-6 border-3 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <div>
+              <p class="text-title-md font-semibold text-primary">Searching MITS Records...</p>
+              <p class="text-body-sm text-on-surface-variant">Retrieving relevant document chunks and synthesizing grounded answer...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Assistant Response Card -->
+        <div id="aiResponseCard" class="flex justify-start gap-3 max-w-5xl mr-auto">
+          <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm mt-1">
+            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+          </div>
+          <div class="flex-1 bg-surface-container-lowest rounded-2xl rounded-tl-xs border border-outline-variant/40 shadow-sm p-6 space-y-6">
+            
+            <!-- Badges & Verification Header -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-outline-variant/20">
+              <div class="flex items-center gap-2.5">
+                <span class="text-title-md font-bold text-primary">CampusAssist AI</span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534] text-label-sm font-semibold">
+                  <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                  <span id="responseStatusBadge">Verified Official Response</span>
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F8FAFC] border border-[#E2E8F0] text-[#64748B] text-label-sm" id="responseModelBadge">
+                  Gemini Grounded
+                </span>
+              </div>
+              <div class="flex items-center gap-1 text-body-sm text-on-surface-variant">
+                <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+                <span id="responseTimestamp">Generated just now</span>
+              </div>
+            </div>
+
+            <!-- Answer Content -->
+            <div class="prose max-w-none text-on-surface leading-relaxed whitespace-pre-line text-body-md" id="aiAnswerBody">
+              Waiting for inquiry...
+            </div>
+
+            <!-- Grounded Institutional Citations Section -->
+            <div class="pt-4 border-t border-outline-variant/20">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+                  <span class="text-title-md font-bold text-on-surface" id="citationsHeader">Grounded Institutional Citations</span>
+                </div>
+                <span class="text-body-sm text-on-surface-variant">Validated against MITS Records</span>
+              </div>
+              
+              <!-- Citation Cards Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="citationsGrid">
+                <!-- Dynamically populated citation cards -->
+              </div>
+            </div>
+
+            <!-- AI Actions Row -->
+            <div class="pt-3 border-t border-outline-variant/20 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <button onclick="copyAnswerText()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:bg-surface-container-low text-body-sm transition-colors shadow-2xs">
+                  <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                  <span id="copyBtnText">Copy Answer</span>
+                </button>
+                <button onclick="regenerateLastAnswer()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:bg-surface-container-low text-body-sm transition-colors shadow-2xs">
+                  <span class="material-symbols-outlined text-[16px]">refresh</span>
+                  <span>Regenerate</span>
+                </button>
+                <div class="h-5 w-px bg-outline-variant/40 mx-1"></div>
+                <button onclick="showToast('Thank you for the feedback!')" class="p-1.5 rounded-lg border border-outline-variant/40 text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" title="Helpful">
+                  <span class="material-symbols-outlined text-[18px]">thumb_up</span>
+                </button>
+                <button onclick="showToast('Feedback noted. We will refine future retrievals.')" class="p-1.5 rounded-lg border border-outline-variant/40 text-on-surface-variant hover:text-error hover:bg-surface-container-low transition-colors" title="Not Helpful">
+                  <span class="material-symbols-outlined text-[18px]">thumb_down</span>
+                </button>
+              </div>
+              <span class="text-xs text-outline font-medium" id="confidenceNotice">ChromaDB Similarity Match: 95%+</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Persistent Sticky Bottom Query Input Bar in Active View -->
+      <div class="fixed bottom-0 right-0 left-72 p-4 bg-gradient-to-t from-background via-background/95 to-transparent z-20">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/50 shadow-lg p-2.5 flex items-center gap-2 focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+            <textarea id="activePromptInput" class="flex-1 resize-none border-0 bg-transparent py-1.5 px-2 text-on-surface placeholder:text-outline text-body-md focus:ring-0 focus:outline-none" placeholder="Ask a follow-up question..." rows="1"></textarea>
+            <button onclick="handleActiveSend()" class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center hover:bg-primary active:scale-95 transition-all shrink-0">
+              <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: COLLEGE EXPLORER VIEW              -->
+    <!-- ========================================== -->
+    <main id="view-explorer" class="hidden flex-1 p-8 space-y-7 max-w-[1440px]">
+      <section class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-3">
+            <h1 class="text-headline-lg font-bold text-on-surface tracking-tight text-3xl">College Information Explorer</h1>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] text-[#166534]">
+              <span class="w-2 h-2 rounded-full bg-[#166534] animate-pulse"></span>
+              <span class="text-label-sm font-semibold tracking-wide">Verified Database</span>
+            </div>
+          </div>
+          <p class="text-body-md text-on-surface-variant max-w-3xl">
+            Certified MITS Gwalior document collection, academic schemes, admissions policies, and examination notices stored in ChromaDB.
+          </p>
+        </div>
+        <button onclick="submitQuery('What are all the courses offered in MITS Gwalior?')" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary font-semibold text-body-md shadow-xs hover:bg-tertiary transition-colors">
+          <span class="material-symbols-outlined text-[18px]">search</span>
+          <span>Explore All Courses</span>
+        </button>
+      </section>
+
+      <!-- Knowledge Categories Grid -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-5 bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-xs space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-low text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">school</span>
+          </div>
+          <h3 class="text-title-md font-bold text-on-surface">Undergraduate Admissions</h3>
+          <p class="text-body-sm text-on-surface-variant">14 B.Tech engineering branches accredited by NBA. MP DTE counseling guidance, eligibility requirements, and tuition structures.</p>
+          <button onclick="submitQuery('Tell me in detail about UG Admissions, criteria, and branches at MITS.')" class="text-primary font-semibold text-body-sm flex items-center gap-1 hover:underline">
+            <span>Query Admissions</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+
+        <div class="p-5 bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-xs space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-low text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">calendar_month</span>
+          </div>
+          <h3 class="text-title-md font-bold text-on-surface">Academic Calendar & Schemes</h3>
+          <p class="text-body-sm text-on-surface-variant">Semester schedules, mid-term dates, practical examination periods, credit distributions, and grade point evaluation rules.</p>
+          <button onclick="submitQuery('What does the MITS academic calendar say about semester dates and exams?')" class="text-primary font-semibold text-body-sm flex items-center gap-1 hover:underline">
+            <span>Query Academic Calendar</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+
+        <div class="p-5 bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-xs space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-low text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">apartment</span>
+          </div>
+          <h3 class="text-title-md font-bold text-on-surface">Campus, Hostels & Policies</h3>
+          <p class="text-body-sm text-on-surface-variant">Hostel allocation, mess rules, library borrowing limits, Wi-Fi facilities, scholarships, and administrative circulars.</p>
+          <button onclick="submitQuery('What are the rules and facilities for MITS hostels and library?')" class="text-primary font-semibold text-body-sm flex items-center gap-1 hover:underline">
+            <span>Query Campus Rules</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Live Search Box for Knowledge Base -->
+      <section class="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 p-6 space-y-4 shadow-xs">
+        <h2 class="text-title-md font-bold text-on-surface">Search Raw Knowledge Base Documents</h2>
+        <div class="flex gap-3">
+          <input id="explorerSearchInput" type="text" class="flex-1 bg-surface-bright rounded-xl border border-outline-variant/50 px-4 py-2.5 text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Type a search query (e.g. attendance, registration, syllabus)..." onkeydown="if(event.key==='Enter') executeRawSearch()"/>
+          <button onclick="executeRawSearch()" class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-semibold text-body-md hover:bg-tertiary transition-colors">
+            Search
+          </button>
+        </div>
+        <div id="explorerResults" class="space-y-3 pt-2">
+          <!-- Populated by search results -->
+        </div>
+      </section>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: SYLLABUS VAULT VIEW                -->
+    <!-- ========================================== -->
+    <main id="view-syllabus" class="hidden flex-1 p-8 space-y-7 max-w-[1440px]">
+      <section class="space-y-2 pb-2">
+        <h1 class="text-headline-lg font-bold text-on-surface tracking-tight text-3xl">MITS Syllabus Vault</h1>
+        <p class="text-body-md text-on-surface-variant max-w-3xl">
+          Browse curriculum frameworks, course structures, and autonomous academic guidelines ratified by the Board of Studies.
+        </p>
+      </section>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-xs space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-[28px]">code</span>
+            <h3 class="text-title-md font-bold text-on-surface">Computer Science & Information Tech</h3>
+          </div>
+          <p class="text-body-sm text-on-surface-variant">Includes AI & Data Science, IoT, Cyber Security, Software Engineering, and core algorithms schemes.</p>
+          <button onclick="submitQuery('What are the subjects and syllabus structure for Computer Science at MITS?')" class="px-4 py-2 rounded-lg bg-surface-container-low text-primary font-semibold text-body-sm hover:bg-surface-container transition-colors">
+            Ask Syllabus Question
+          </button>
+        </div>
+
+        <div class="p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/40 shadow-xs space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-[28px]">memory</span>
+            <h3 class="text-title-md font-bold text-on-surface">Electrical, Electronics & Mechanical</h3>
+          </div>
+          <p class="text-body-sm text-on-surface-variant">Embedded Systems, VLSI, Power Electronics, Robotics, Thermal Engineering, and manufacturing labs.</p>
+          <button onclick="submitQuery('What are the core technical courses in Electrical and Electronics Engineering at MITS?')" class="px-4 py-2 rounded-lg bg-surface-container-low text-primary font-semibold text-body-sm hover:bg-surface-container transition-colors">
+            Ask Syllabus Question
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- VIEW 5: ADMIN DASHBOARD VIEW               -->
+    <!-- ========================================== -->
+    <main id="view-admin" class="hidden flex-1 p-8 space-y-6 max-w-[1440px]">
+      <section class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-headline-lg font-bold text-on-surface tracking-tight text-3xl">Admin Knowledge Base Dashboard</h1>
+            <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary text-xs font-semibold border border-outline-variant/40">
+              Vector Store v4.2
+            </span>
+          </div>
+          <p class="text-body-md text-on-surface-variant mt-1">
+            ChromaDB persistent vector store monitoring, RAG grounding status, and FastAPI server telemetry.
+          </p>
+        </div>
+        <button onclick="checkHealth()" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary font-semibold text-body-md shadow-xs hover:bg-tertiary transition-colors">
+          <span class="material-symbols-outlined text-[18px]">refresh</span>
+          <span>Refresh Metrics</span>
+        </button>
+      </section>
+
+      <!-- Status Cards Grid -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs">
+          <div class="flex items-center justify-between text-outline mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">FastAPI Backend</span>
+            <span class="material-symbols-outlined text-[20px] text-primary">dns</span>
+          </div>
+          <p class="text-2xl font-bold text-primary" id="adminApiStatus">Online</p>
+          <p class="text-xs text-on-surface-variant mt-1">Health live & ready endpoints active</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs">
+          <div class="flex items-center justify-between text-outline mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Retrieval Engine</span>
+            <span class="material-symbols-outlined text-[20px] text-secondary">database</span>
+          </div>
+          <p class="text-2xl font-bold text-secondary" id="adminRetrievalStatus">ChromaDB Ready</p>
+          <p class="text-xs text-on-surface-variant mt-1">Collection: campusassist_faq</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs">
+          <div class="flex items-center justify-between text-outline mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Embedding Model</span>
+            <span class="material-symbols-outlined text-[20px] text-primary">neurology</span>
+          </div>
+          <p class="text-lg font-bold text-on-surface truncate">all-MiniLM-L6-v2</p>
+          <p class="text-xs text-on-surface-variant mt-1">Cosine similarity space</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 shadow-xs">
+          <div class="flex items-center justify-between text-outline mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider">Generation Engine</span>
+            <span class="material-symbols-outlined text-[20px] text-primary">auto_awesome</span>
+          </div>
+          <p class="text-2xl font-bold text-primary">Gemini 2.5 / Flash</p>
+          <p class="text-xs text-on-surface-variant mt-1">Strict RAG Grounding Prompt</p>
+        </div>
+      </section>
+
+      <!-- System Architecture & Pipeline Details -->
+      <section class="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 p-6 space-y-4 shadow-xs">
+        <h2 class="text-title-md font-bold text-on-surface">Integrated RAG Pipeline Architecture</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-surface-bright border border-outline-variant/30 space-y-2">
+            <span class="text-xs font-bold text-primary uppercase">1. Fetcher & Ingestion</span>
+            <p class="text-body-sm text-on-surface-variant">Extracts text from MITS Gwalior official sitemap, admissions pages, and PDF circulars with strict validation.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-surface-bright border border-outline-variant/30 space-y-2">
+            <span class="text-xs font-bold text-primary uppercase">2. Vector Search</span>
+            <p class="text-body-sm text-on-surface-variant">Chunks text with 800 char window, creates normalized embeddings, and retrieves top-k relevant document chunks.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-surface-bright border border-outline-variant/30 space-y-2">
+            <span class="text-xs font-bold text-primary uppercase">3. Grounded Synthesis</span>
+            <p class="text-body-sm text-on-surface-variant">Feeds retrieved citations to Gemini with zero-hallucination system prompt and fallback to retrieval-only mode.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- Toast Notification element -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-surface-container-lowest border border-primary/30 text-on-surface px-4 py-3 rounded-xl shadow-lg transform translate-y-24 opacity-0 transition-all duration-300 z-50 flex items-center gap-2">
+    <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+    <span id="toastMessage" class="text-body-sm font-medium">Notification</span>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

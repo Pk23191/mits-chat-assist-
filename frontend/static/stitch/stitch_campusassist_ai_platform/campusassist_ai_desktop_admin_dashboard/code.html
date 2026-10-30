@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Knowledge Base Dashboard - CampusAssist AI</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-bright": "#f8f9ff",
+            "on-tertiary-container": "#54e97d",
+            "secondary-fixed-dim": "#79db8d",
+            "primary-container": "#166534",
+            "surface-variant": "#d3e4fe",
+            "tertiary": "#004b1e",
+            "on-secondary-container": "#007233",
+            "inverse-primary": "#8bd79b",
+            "on-surface": "#0b1c30",
+            "inverse-on-surface": "#eaf1ff",
+            "tertiary-container": "#00662b",
+            "on-secondary-fixed-variant": "#005323",
+            "surface-container-high": "#dce9ff",
+            "surface-container-low": "#eff4ff",
+            "on-primary-container": "#93e0a2",
+            "surface-container-highest": "#d3e4fe",
+            "surface-container": "#e5eeff",
+            "on-tertiary-fixed-variant": "#005321",
+            "outline-variant": "#bfc9bd",
+            "secondary-container": "#92f5a4",
+            "on-tertiary-fixed": "#002109",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#005226",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed-dim": "#8bd79b",
+            "on-error": "#ffffff",
+            "surface": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#404940",
+            "inverse-surface": "#213145",
+            "primary-fixed": "#a6f4b5",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#4ae176",
+            "surface-container-lowest": "#ffffff",
+            "on-background": "#0b1c30",
+            "background": "#f8f9ff",
+            "outline": "#707a6f",
+            "tertiary-fixed": "#6bff8f",
+            "error": "#ba1a1a",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#00210a",
+            "primary": "#004c22",
+            "secondary": "#006d30",
+            "surface-tint": "#1f6c3a",
+            "on-primary": "#ffffff",
+            "on-primary-fixed": "#00210b",
+            "secondary-fixed": "#95f8a7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.5rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "code-snippet": ["JetBrains Mono"],
+            "label-sm": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "code-snippet": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen selection:bg-secondary-fixed selection:text-primary">
+<!-- LEFT PERSISTENT SIDEBAR (Shared Component: SideNavBar) -->
+<aside class="fixed top-0 left-0 h-screen w-72 flex flex-col justify-between z-40 bg-surface-container-lowest shadow-sm border-r border-outline-variant/30">
+<div class="h-full flex flex-col px-4 py-5 overflow-y-auto">
+<!-- Brand & Institutional Crest -->
+<div class="flex items-center gap-3 px-2 mb-6">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<img alt="MITS Gwalior Institutional Crest emblem" class="w-8 h-8 rounded-lg object-contain" data-alt="Madhav Institute of Technology and Science institutional official seal emblem with intricate academic heraldry rendered crisp and gold-etched against deep forest green background, university crest format." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVfLjqYTVgmWUQ9pJC6IVUwFX9enoDTyZGXrcy7jZJc0g3LF-B2k9d-CjFNL0oPcMZDMILARtP_wYpvOxxDfIcEUAV1ICauJYEUm-lYg_yGSOPtwaLN-N2h0mcQN_I3LvQjAea-Xq7bUzpjXREbDlvoBKjTGVSb_iz1Mu5LD4Ff8jxBSlBl8HuhrYON6wH9-AuO7ObzGhpT0fV9tlIyXIHmMNC5f_XrBgHWYmn62I"/>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="text-title-md font-headline-sm font-bold text-primary">CampusAssist AI</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">MITS Gwalior Portal</span>
+</div>
+</div>
+<!-- Mode & Status Indicator -->
+<div class="mb-4 px-2">
+<div class="flex items-center justify-between px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/40">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-primary font-bold">Admin Mode</span>
+</div>
+<span class="text-body-sm font-body-sm px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-code-snippet">v2.4-RAG</span>
+</div>
+</div>
+<!-- New Chat / Action Button -->
+<div class="mb-6 px-1">
+<button class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-surface-container-low text-primary hover:bg-surface-container font-label-md text-label-md transition-colors border border-outline-variant/30 active:scale-[0.99]">
+<span class="material-symbols-outlined text-primary" data-icon="add" style="font-size: 20px;">add</span>
+<span>New Chat</span>
+</button>
+</div>
+<!-- Navigation Links (Active: Admin Dashboard) -->
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span>AI Chat</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span>College Explorer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Syllabus Vault</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>Exam Schedules</span>
+</a>
+<!-- ACTIVE TAB: Admin Dashboard -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-low text-primary font-title-md text-title-md border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings" data-weight="fill" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+<span>Admin Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Knowledge Base Scope Summary Card -->
+<div class="mt-8 p-3 rounded-xl bg-surface-container-low/50 border border-outline-variant/30">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Grounding Scope</span>
+<span class="text-label-sm font-label-sm text-secondary font-bold">MITS Domain</span>
+</div>
+<div class="w-full bg-outline-variant/30 h-1.5 rounded-full overflow-hidden mb-2">
+<div class="bg-primary h-full rounded-full" style="width: 88%;"></div>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary" data-icon="verified_user" style="font-size: 14px;">verified_user</span>
+          88% Syllabi Verified
+        </span>
+</div>
+<!-- Footer Action Links -->
+<div class="mt-auto pt-6 border-t border-outline-variant/20 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low/60 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 font-body-md text-body-md transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Log Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TOP APP BAR (Shared Component: TopNavBar) -->
+<header class="sticky top-0 h-16 w-auto z-30 ml-72 bg-surface-container-lowest shadow-sm border-b border-outline-variant/30">
+<div class="flex justify-between items-center h-full px-6 max-w-full">
+<!-- Institutional Hub Identifier -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="text-title-md font-headline-sm font-bold text-primary">CampusAssist AI</span>
+<span class="text-body-sm font-body-sm text-outline px-2 py-0.5 rounded bg-surface-container-low">Knowledge Base RAG Engine</span>
+</div>
+<nav class="hidden xl:flex items-center gap-5">
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#">Curriculum 2024</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#">Department Notices</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md transition-colors" href="#">Academic Calendar</a>
+</nav>
+</div>
+<!-- Trailing Actions & Search -->
+<div class="flex items-center gap-3">
+<!-- Global Sync Quick Action -->
+<button class="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary text-on-primary hover:bg-tertiary transition-colors font-label-md text-label-md active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="sync" style="font-size: 18px;">sync</span>
+<span>Sync Records</span>
+</button>
+<button class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant/40 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-body-md text-body-md transition-colors">
+<span class="material-symbols-outlined" data-icon="groups" style="font-size: 18px;">groups</span>
+<span>Faculty Directory</span>
+</button>
+<div class="h-6 w-px bg-outline-variant/40 mx-1 hidden sm:block"></div>
+<button aria-label="Notifications" class="p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span>
+</button>
+<button aria-label="Help" class="p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="flex items-center gap-2 pl-2">
+<div class="w-8 h-8 rounded-full border border-outline-variant/50 overflow-hidden bg-surface-container flex items-center justify-center">
+<img alt="MITS Student Faculty User Avatar" class="w-full h-full object-cover" data-alt="Portrait photo of an academic dean and engineering faculty professor at MITS Gwalior wearing dark green institutional blazer with spectacles, smiling calmly in university administrative office context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXi2rwMjhHVVC0RTPol4fVpJqigFNMpx0y1WbxawWnd8S8ff6GmVj37c4EPXAhp2pE1lRpfhVgO4WmScEnQZKSS6EIkf_V2hK-YbIHPPud2cZlydyvFUWf-ftPeXdAAHggRSE1fAcJrlgiTDOzJseVqTmaeW_mlDvdslYgdloQUHcbSxgPs9-iex8UtkvA36ii4-J4GqY3yeBLIhqOpvwaor_G9Eocdute7h8NpnY"/>
+</div>
+<span class="hidden sm:inline text-label-md font-label-md text-on-surface">Prof. R. Sharma</span>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS / WORKSPACE -->
+<main class="ml-72 min-h-[calc(100vh-4rem)] p-8 max-w-[1440px] space-y-6">
+<!-- PAGE HEADER -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<div class="flex items-center gap-2.5">
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Admin Knowledge Base Dashboard</h1>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold border border-outline-variant/40">
+            Vector Store v4.2
+          </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">
+          Monitor vector ingestion, departmental circular indexing, and RAG grounding truth for Madhav Institute of Technology and Science.
+        </p>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface-variant text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+          Cluster: Central-MP-Node-01
+        </span>
+</div>
+</div>
+<!-- TOP ALERT BANNER: Live Sync Engine -->
+<section class="rounded-xl border border-secondary/30 bg-surface-container-lowest p-4 shadow-sm flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+<div class="flex items-start sm:items-center gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary shrink-0 border border-outline-variant/30">
+<span class="material-symbols-outlined text-secondary" data-icon="rss_feed" data-weight="fill" style="font-variation-settings: 'FILL' 1;">rss_feed</span>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="text-title-md font-title-md text-on-surface">Live Sync Engine — Automated Crawler connected to</span>
+<code class="px-2 py-0.5 rounded bg-surface-container text-primary font-code-snippet text-code-snippet font-semibold">mitsgwalior.in/notifications</code>
+</div>
+<div class="flex items-center gap-3 mt-1 text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-secondary font-medium">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-size: 16px;">check_circle</span>
+              Active Status
+            </span>
+<span>•</span>
+<span>Scrapes every 120 mins</span>
+<span>•</span>
+<span class="font-code-snippet">Next run: 08:30 AM IST</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0 self-end lg:self-center">
+<a class="text-label-md font-label-md text-primary hover:text-tertiary underline decoration-outline-variant flex items-center gap-1" href="#history">
+<span class="material-symbols-outlined" data-icon="history" style="font-size: 18px;">history</span>
+<span>Sync History</span>
+</a>
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-on-primary hover:bg-tertiary transition-colors text-label-md font-label-md active:scale-[0.98] shadow-sm">
+<span class="material-symbols-outlined" data-icon="autorenew" style="font-size: 18px;">autorenew</span>
+<span>Manual Trigger Sync</span>
+</button>
+</div>
+</section>
+<!-- 4 KEY METRIC SUMMARY CARDS -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Indexed Documents -->
+<div class="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm hover:shadow transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Indexed Documents</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="library_books" style="font-size: 20px;">library_books</span>
+</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg text-on-surface">428</span>
+<span class="text-label-sm font-label-sm text-secondary font-medium">active</span>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-body-sm font-body-sm text-secondary">
+<span class="material-symbols-outlined" data-icon="trending_up" style="font-size: 16px;">trending_up</span>
+<span>+14 this academic week</span>
+</div>
+</div>
+<!-- Card 2: Last Successful Sync -->
+<div class="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm hover:shadow transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Last Successful Sync</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="task_alt" style="font-size: 20px;">task_alt</span>
+</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-md font-headline-md text-on-surface">Today, 06:30 AM</span>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-body-sm font-body-sm text-on-surface-variant font-code-snippet">
+<span class="material-symbols-outlined text-outline" data-icon="schedule" style="font-size: 16px;">schedule</span>
+<span>Cron Job #4092</span>
+</div>
+</div>
+<!-- Card 3: Ingestion Queue -->
+<div class="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-5 shadow-sm hover:shadow transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md">Ingestion Queue</span>
+<span class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="pending_actions" style="font-size: 20px;">pending_actions</span>
+</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg text-on-surface">3</span>
+<span class="text-label-sm font-label-sm text-outline font-medium">pending</span>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-outline" data-icon="speed" style="font-size: 16px;">speed</span>
+<span>Avg embedding latency 4.2s</span>
+</div>
+</div>
+<!-- Card 4: Needs Verification -->
+<div class="rounded-xl border border-error/30 bg-surface-container-lowest p-5 shadow-sm hover:shadow transition-shadow relative overflow-hidden">
+<div class="absolute top-0 right-0 w-2 h-full bg-error"></div>
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="text-label-md font-label-md text-error">Needs Verification</span>
+<span class="w-8 h-8 rounded-lg bg-error-container/50 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" data-icon="flag" style="font-size: 20px;">flag</span>
+</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg text-error">5</span>
+<span class="text-label-sm font-label-sm text-error font-medium">flagged</span>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-body-sm font-body-sm text-error">
+<span class="material-symbols-outlined" data-icon="psychology_alt" style="font-size: 16px;">psychology_alt</span>
+<span>Requires human-in-the-loop review</span>
+</div>
+</div>
+</section>
+<!-- KNOWLEDGE BASE DOCUMENTS MANAGEMENT SECTION -->
+<section class="rounded-xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm overflow-hidden">
+<!-- Section Toolbar -->
+<div class="p-5 border-b border-outline-variant/20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Knowledge Base Documents Management</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Authoritative repository records queried by CampusAssist retrieval pipelines.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<!-- Search Bar -->
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant" data-icon="search" style="font-size: 18px;">search</span>
+<input class="w-full pl-9 pr-3 py-2 rounded-lg border border-outline-variant/50 text-body-sm font-body-sm placeholder:text-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 bg-surface-container-lowest" placeholder="Search title, dept, or URL..." type="text"/>
+</div>
+<!-- Category Filter -->
+<div class="relative">
+<select class="appearance-none pl-3 pr-8 py-2 rounded-lg border border-outline-variant/50 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest focus:outline-none focus:border-primary cursor-pointer">
+<option>All Categories</option>
+<option>Academic Circulars</option>
+<option>Curriculum &amp; Syllabi</option>
+<option>Fee Structures</option>
+<option>Campus Facilities</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant pointer-events-none" data-icon="expand_more" style="font-size: 18px;">expand_more</span>
+</div>
+<!-- Status Filter -->
+<div class="relative">
+<select class="appearance-none pl-3 pr-8 py-2 rounded-lg border border-outline-variant/50 text-body-sm font-body-sm text-on-surface bg-surface-container-lowest focus:outline-none focus:border-primary cursor-pointer">
+<option>All Statuses</option>
+<option>Active &amp; Synced</option>
+<option>Flagged / Pending Review</option>
+<option>Cold Archive</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant pointer-events-none" data-icon="tune" style="font-size: 18px;">tune</span>
+</div>
+<!-- Upload PDF Primary Green Action -->
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-tertiary transition-colors font-label-md text-label-md active:scale-[0.98] shadow-sm">
+<span class="material-symbols-outlined" data-icon="upload_file" style="font-size: 18px;">upload_file</span>
+<span>+ Upload PDF Source</span>
+</button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/60 border-b border-outline-variant/20 text-label-sm font-label-sm text-on-surface-variant">
+<th class="py-3 px-4 font-semibold">Document Title</th>
+<th class="py-3 px-4 font-semibold">Category</th>
+<th class="py-3 px-4 font-semibold">Source URL / Dept</th>
+<th class="py-3 px-4 font-semibold">Chunks &amp; Vectors</th>
+<th class="py-3 px-4 font-semibold">Confidence Score</th>
+<th class="py-3 px-4 font-semibold">Status Badge</th>
+<th class="py-3 px-4 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 text-body-sm font-body-sm">
+<!-- Row 1: Dean_Acad_Exam_Notice_Oct24.pdf -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-medium text-on-surface">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-surface-container-high/60 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf" style="font-size: 18px;">picture_as_pdf</span>
+</div>
+<div>
+<span class="font-semibold block text-on-surface">Dean_Acad_Exam_Notice_Oct24.pdf</span>
+<span class="text-body-sm text-outline font-code-snippet">SHA256: 7f8c12a...</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface font-medium">
+                  Academic Circulars
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Dean Academics Office</span>
+<a class="text-body-sm font-code-snippet text-primary hover:underline truncate max-w-[180px]" href="#">mitsgwalior.in/notices/exam-oct24</a>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">32 vectors</span>
+<span class="text-outline text-body-sm">(4 chunks)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-outline-variant/30 h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 99.4%;"></div>
+</div>
+<span class="font-code-snippet font-semibold text-primary">99.4%</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed/30 border border-secondary text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-size: 14px;">check_circle</span>
+                  Processed &amp; Active
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Reprocess">
+<span class="material-symbols-outlined" data-icon="autorenew" style="font-size: 18px;">autorenew</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Review Citations">
+<span class="material-symbols-outlined" data-icon="format_quote" style="font-size: 18px;">format_quote</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:text-error hover:bg-surface-container transition-colors" title="Archive">
+<span class="material-symbols-outlined" data-icon="archive" style="font-size: 18px;">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Fee_Structure_DTE_MP_2024.pdf -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-medium text-on-surface">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-error-container/30 flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf" style="font-size: 18px;">picture_as_pdf</span>
+</div>
+<div>
+<span class="font-semibold block text-on-surface">Fee_Structure_DTE_MP_2024.pdf</span>
+<span class="text-body-sm text-outline font-code-snippet">SHA256: 3d1a99f...</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface font-medium">
+                  Fees
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Finance &amp; Accounts</span>
+<a class="text-body-sm font-code-snippet text-primary hover:underline truncate max-w-[180px]" href="#">dte.mponline.gov.in/fee24</a>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">18 vectors</span>
+<span class="text-outline text-body-sm">(2 chunks)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-outline-variant/30 h-1.5 rounded-full overflow-hidden">
+<div class="bg-outline h-full rounded-full" style="width: 71.0%;"></div>
+</div>
+<span class="font-code-snippet font-semibold text-outline">71.0%</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold border border-outline-variant">
+<span class="material-symbols-outlined text-outline" data-icon="warning" style="font-size: 14px;">warning</span>
+                    Review Required - Missing Issue Date
+                  </span>
+<span class="inline-flex items-center gap-1 text-body-sm font-label-sm text-primary font-medium">
+<span class="material-symbols-outlined text-secondary" data-icon="security" style="font-size: 13px;">security</span>
+                    AI Hallucination Guardrail active
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary text-label-sm font-label-sm hover:bg-tertiary transition-colors" title="Resolve and Reprocess">
+                    Review
+                  </button>
+<button class="p-1.5 rounded text-on-surface-variant hover:text-error hover:bg-surface-container transition-colors" title="Archive">
+<span class="material-symbols-outlined" data-icon="archive" style="font-size: 18px;">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Old_Bus_Routes_2021.pdf -->
+<tr class="hover:bg-surface-container-low/40 transition-colors opacity-75">
+<td class="py-3.5 px-4 font-medium text-on-surface">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-outline shrink-0">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-size: 18px;">inventory_2</span>
+</div>
+<div>
+<span class="font-semibold block text-on-surface line-through decoration-outline">Old_Bus_Routes_2021.pdf</span>
+<span class="text-body-sm text-outline font-code-snippet">SHA256: 0e44b91...</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-outline font-medium">
+                  Transport
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant">
+<div class="flex flex-col">
+<span class="font-medium text-outline">Transport Cell</span>
+<span class="text-body-sm font-code-snippet text-outline truncate max-w-[180px]">Internal Legacy File</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="font-medium text-outline">0 active</span>
+<span class="text-outline text-body-sm">(12 cold)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="font-code-snippet text-outline">Deprecated</span>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-outline font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined" data-icon="ac_unit" style="font-size: 14px;">ac_unit</span>
+                  Archived, Cold Vector Storage
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Restore Vectorization">
+<span class="material-symbols-outlined" data-icon="unarchive" style="font-size: 18px;">unarchive</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:text-error hover:bg-surface-container transition-colors" title="Purge">
+<span class="material-symbols-outlined" data-icon="delete" style="font-size: 18px;">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: BTech_CSE_Curriculum_NEP2020.pdf -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-medium text-on-surface">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded bg-surface-container-high/60 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf" style="font-size: 18px;">picture_as_pdf</span>
+</div>
+<div>
+<span class="font-semibold block text-on-surface">BTech_CSE_Curriculum_NEP2020.pdf</span>
+<span class="text-body-sm text-outline font-code-snippet">SHA256: 9e20bc4...</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-fixed/20 text-primary font-medium">
+                  Syllabus
+                </span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">CSE Department Board</span>
+<a class="text-body-sm font-code-snippet text-primary hover:underline truncate max-w-[180px]" href="#">mitsgwalior.in/academics/cse-nep</a>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface">64 vectors</span>
+<span class="text-outline text-body-sm">(8 chunks)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-outline-variant/30 h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 98.7%;"></div>
+</div>
+<span class="font-code-snippet font-semibold text-primary">98.7%</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed/30 border border-secondary text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-size: 14px;">check_circle</span>
+                  Active
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Reprocess">
+<span class="material-symbols-outlined" data-icon="autorenew" style="font-size: 18px;">autorenew</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Review Citations">
+<span class="material-symbols-outlined" data-icon="format_quote" style="font-size: 18px;">format_quote</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:text-error hover:bg-surface-container transition-colors" title="Archive">
+<span class="material-symbols-outlined" data-icon="archive" style="font-size: 18px;">archive</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Summary Footer -->
+<div class="p-4 bg-surface-container-low/30 border-t border-outline-variant/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-body-sm font-body-sm text-on-surface-variant">
+<span>Showing 4 of 428 indexed institutional records</span>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded border border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:bg-surface-container-low disabled:opacity-50 text-label-sm font-label-sm" disabled="">Previous</button>
+<span class="px-2 font-medium">Page 1 of 107</span>
+<button class="px-3 py-1 rounded border border-outline-variant/40 bg-surface-container-lowest text-on-surface hover:bg-surface-container-low text-label-sm font-label-sm">Next</button>
+</div>
+</div>
+</section>
+<!-- GROUNDING & CITATION COMPLIANCE WIDGET (BOTTOM) -->
+<section class="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+<!-- Left: Status & Engine Health -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-primary border border-outline-variant/40">
+<span class="material-symbols-outlined text-secondary" data-icon="network_check" style="font-size: 26px;">network_check</span>
+</div>
+<div>
+<span class="text-body-sm font-body-sm text-on-surface-variant block">Sync Engine Health</span>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-headline-sm font-bold text-primary">99.8% Online</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<span class="text-body-sm font-body-sm text-outline">Cluster Latency: 18ms</span>
+</div>
+</div>
+<div class="h-10 w-px bg-outline-variant/40 hidden sm:block"></div>
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-primary border border-outline-variant/40">
+<span class="material-symbols-outlined text-primary" data-icon="fact_check" style="font-size: 26px;">fact_check</span>
+</div>
+<div>
+<span class="text-body-sm font-body-sm text-on-surface-variant block">RAG Accuracy</span>
+<div class="flex items-center gap-2">
+<span class="text-title-md font-headline-sm font-bold text-primary">99.1% Grounded</span>
+<span class="material-symbols-outlined text-secondary" data-icon="verified" style="font-size: 18px;">verified</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline">Evaluated via Cosine Sim Threshold 0.88</span>
+</div>
+</div>
+</div>
+<!-- Right: Real-time Institutional Safeguards Checklist -->
+<div class="flex flex-wrap items-center gap-2.5">
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="policy" style="font-size: 16px;">policy</span>
+<span>MITS Circular Grounding: Strict</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="lock_reset" style="font-size: 16px;">lock_reset</span>
+<span>Hallucination Blockers: 100% Active</span>
+</div>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors border border-outline-variant/40">
+<span class="material-symbols-outlined" data-icon="download" style="font-size: 16px;">download</span>
+<span>Audit Report</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<script>
+    // Micro-interactions and subtle feedback
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        if (!this.classList.contains('active:scale-[0.98]')) {
+          this.classList.add('transition-transform', 'active:scale-95');
+        }
+      });
+    });
+  </script>
+</body></html>

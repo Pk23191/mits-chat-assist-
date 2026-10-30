@@ -1,0 +1,28 @@
+services:
+  campusassist:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: campusassist-ai:latest
+    container_name: campusassist-ai
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=CampusAssist AI
+      - APP_ENV=production
+      - LOG_LEVEL=INFO
+      - CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DATA_DIR=data
+      - VECTOR_STORE_DIR=data/vectorstore
+      - CHROMA_COLLECTION=campusassist_faq
+      - EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+      - RETRIEVAL_MAX_DISTANCE=0.75
+      - RETRIEVAL_TOP_K=4
+    volumes:
+      - chroma_data:/app/data/vectorstore
+    restart: unless-stopped
+
+volumes:
+  chroma_data:
+    name: campusassist_chroma_data

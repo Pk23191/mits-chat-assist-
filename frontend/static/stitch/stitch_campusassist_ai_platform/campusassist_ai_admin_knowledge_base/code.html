@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Knowledge Base Dashboard - CampusAssist AI</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface": "#0b1c30",
+            "error": "#ba1a1a",
+            "surface-bright": "#f8f9ff",
+            "inverse-surface": "#213145",
+            "tertiary-fixed-dim": "#4ae176",
+            "on-surface-variant": "#404940",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed": "#00210a",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#00662b",
+            "primary": "#004c22",
+            "secondary-fixed-dim": "#79db8d",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-container": "#007233",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#005323",
+            "inverse-on-surface": "#eaf1ff",
+            "surface": "#f8f9ff",
+            "on-tertiary-fixed": "#002109",
+            "surface-container": "#e5eeff",
+            "on-tertiary": "#ffffff",
+            "surface-container-highest": "#d3e4fe",
+            "tertiary-fixed": "#6bff8f",
+            "background": "#f8f9ff",
+            "surface-variant": "#d3e4fe",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#95f8a7",
+            "secondary-container": "#92f5a4",
+            "secondary": "#006d30",
+            "on-primary-container": "#93e0a2",
+            "on-background": "#0b1c30",
+            "surface-dim": "#cbdbf5",
+            "primary-container": "#166534",
+            "on-tertiary-container": "#54e97d",
+            "outline": "#707a6f",
+            "surface-container-low": "#eff4ff",
+            "tertiary": "#004b1e",
+            "on-primary-fixed": "#00210b",
+            "outline-variant": "#bfc9bd",
+            "on-tertiary-fixed-variant": "#005321",
+            "primary-fixed": "#a6f4b5",
+            "surface-tint": "#1f6c3a",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#8bd79b",
+            "inverse-primary": "#8bd79b",
+            "on-primary-fixed-variant": "#005226"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem",
+            "margin-mobile": "1rem",
+            "space-xs": "0.25rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "code-snippet": ["JetBrains Mono"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "title-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "code-snippet": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "display-hero": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 4px;
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #bfc9bd;
+      border-radius: 9999px;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md antialiased pb-24 md:pb-8">
+<!-- Administrative Distinction Notice Bar -->
+<aside aria-label="Institutional Admin Notice" class="w-full bg-inverse-surface text-inverse-on-surface px-margin-mobile md:px-margin py-2 text-center text-body-sm font-body-sm flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2 mx-auto">
+<span class="material-symbols-outlined text-secondary-fixed text-base" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="font-title-md text-body-sm">Staff Administration Mode</span>
+<span class="text-outline-variant hidden sm:inline">|</span>
+<span class="text-surface-container-high hidden sm:inline">Connected to RAG Embedding Pipeline v2.4</span>
+</div>
+<a class="text-secondary-fixed hover:underline text-body-sm flex items-center gap-1 font-label-sm" href="#">
+      Exit to Public Portal
+      <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+</a>
+</aside>
+<!-- TopAppBar Component (Rendered strictly from Shared Components JSON blueprint) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-margin h-14 bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-3">
+<button aria-label="Open Navigation" class="p-2 -ml-2 rounded-lg hover:bg-surface-container-low transition-colors duration-150 active:scale-95 text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="text-headline-sm font-headline-sm font-bold text-primary">CampusAssist AI</span>
+<span class="bg-primary-container text-on-primary text-label-sm font-label-sm px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">Admin</span>
+</div>
+</div>
+<!-- Administrative Institution Switcher Cluster -->
+<div class="flex items-center gap-2 sm:gap-3">
+<div class="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-surface-container-low border border-outline-variant rounded-full text-on-surface-variant font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="material-symbols-outlined text-base text-primary" data-icon="account_balance">account_balance</span>
+<span class="font-medium">MITS Gwalior Portal Sync</span>
+</div>
+<button aria-label="Campus Node Switcher" class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</button>
+</div>
+</header>
+<!-- Main Administrative Content Canvas -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-margin-mobile md:px-margin py-6 flex flex-col gap-6">
+<!-- Sync Engine Health Banner -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-start sm:items-center gap-3.5">
+<div class="p-2.5 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl" data-icon="sync" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+              Live Sync Engine
+            </span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Automated Crawler connected to <strong class="text-on-surface font-semibold font-code-snippet text-code-snippet">mitsgwalior.in/notifications</strong></span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Scrapes new gazettes, departmental syllabi changes, and registrar circulars every 120 minutes.</p>
+</div>
+</div>
+<div class="flex items-center gap-2.5 w-full md:w-auto justify-end pt-2 md:pt-0 border-t md:border-t-0 border-outline-variant/50">
+<button class="flex-1 md:flex-none px-4 py-2 bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors duration-150 rounded-lg text-label-md font-label-md flex items-center justify-center gap-1.5 active:scale-95 shadow-sm" id="syncHistoryBtn">
+<span class="material-symbols-outlined text-base" data-icon="history">history</span>
+          Sync History
+        </button>
+<button class="flex-1 md:flex-none px-4 py-2 bg-primary-container text-on-primary hover:bg-secondary transition-colors duration-150 rounded-lg text-label-md font-label-md flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="cached">cached</span>
+          Manual Trigger Sync
+        </button>
+</div>
+</section>
+<!-- Overview KPI Bento Cards (Touch-Optimized Horizontal Scroll on Small Displays, Grid on Tablet/Desktop) -->
+<section aria-label="Knowledge Base KPIs" class="w-full">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Knowledge Base Metrics</h2>
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+          Vector DB: Weaviate Multi-Tenant
+        </span>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 overflow-x-auto pb-1">
+<!-- KPI 1: Indexed Documents -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-150">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Indexed Documents</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="library_books">library_books</span>
+</div>
+</div>
+<div class="mt-3">
+<p class="text-headline-lg-mobile md:text-headline-lg font-headline-lg font-bold text-on-surface">428 <span class="text-label-md font-label-md text-secondary font-semibold">active</span></p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="text-secondary font-medium">+14</span> this academic week
+            </p>
+</div>
+</div>
+<!-- KPI 2: Last Successful Sync -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-150">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Last Successful Sync</span>
+<div class="p-1.5 rounded-lg bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-xl" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="mt-3">
+<p class="text-headline-sm font-headline-sm font-bold text-on-surface">Today, 06:30 AM</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Automatic cron job #4092</p>
+</div>
+</div>
+<!-- KPI 3: Ingestion Queue -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-150">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Ingestion Queue</span>
+<div class="p-1.5 rounded-lg bg-surface-container-high text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="hourglass_top">hourglass_top</span>
+</div>
+</div>
+<div class="mt-3">
+<p class="text-headline-lg-mobile md:text-headline-lg font-headline-lg font-bold text-on-surface">3 <span class="text-label-md font-label-md text-on-surface-variant font-medium">pending</span></p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+              Avg. embedding latency: 4.2s
+            </p>
+</div>
+</div>
+<!-- KPI 4: Needs Verification -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow duration-150">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">Needs Verification</span>
+<div class="p-1.5 rounded-lg bg-error-container text-on-error-container">
+<span class="material-symbols-outlined text-xl" data-icon="flag">flag</span>
+</div>
+</div>
+<div class="mt-3">
+<p class="text-headline-lg-mobile md:text-headline-lg font-headline-lg font-bold text-error">5 <span class="text-label-md font-label-md text-error font-semibold">flagged</span></p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Requires human-in-loop review</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Document Management Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Section Header with Filters and Search Bar -->
+<div class="p-4 sm:p-5 border-b border-outline-variant flex flex-col lg:flex-row gap-4 justify-between lg:items-center">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Knowledge Base Documents</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Manage vectorized institutional circulars, curriculum outlines, and official notifications.</p>
+</div>
+<!-- Search and Filter Cluster -->
+<div class="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
+<div class="relative flex-1 sm:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md font-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search ingested PDF sources..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors flex items-center gap-1.5 active:scale-95">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+<span>Filter</span>
+</button>
+<button class="px-3.5 py-2 bg-primary-container text-on-primary rounded-lg text-label-md font-label-md hover:bg-secondary transition-colors flex items-center gap-1.5 active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-lg" data-icon="upload_file">upload_file</span>
+<span class="hidden sm:inline">Upload Document</span>
+<span class="sm:hidden">Upload</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Filter Pills -->
+<div class="px-4 py-2.5 bg-surface-container-low/50 border-b border-outline-variant flex items-center gap-2 overflow-x-auto custom-scrollbar">
+<button class="px-3 py-1 rounded-full bg-primary-container text-on-primary text-label-sm font-label-sm font-medium shrink-0">All Sources (436)</button>
+<button class="px-3 py-1 rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low text-label-sm font-label-sm font-medium shrink-0">Academic Circulars (182)</button>
+<button class="px-3 py-1 rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low text-label-sm font-label-sm font-medium shrink-0">Exam Schedules (45)</button>
+<button class="px-3 py-1 rounded-full bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:bg-surface-container-low text-label-sm font-label-sm font-medium shrink-0">Syllabus Vault (196)</button>
+<button class="px-3 py-1 rounded-full bg-surface-container-lowest border border-outline-variant text-error hover:bg-error-container/30 text-label-sm font-label-sm font-medium shrink-0 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Flagged (5)
+        </button>
+</div>
+<!-- Ingested Document Row Cards List -->
+<div class="divide-y divide-outline-variant">
+<!-- Document Row 1: Dean_Acad_Exam_Notice_Oct24.pdf -->
+<article class="p-4 sm:p-5 hover:bg-surface-container-low/40 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-3.5">
+<div class="p-2.5 rounded-lg bg-secondary-container text-on-secondary-container shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-2xl" data-icon="description">description</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2.5 flex-wrap">
+<h3 class="text-title-md font-title-md text-on-surface font-semibold">Dean_Acad_Exam_Notice_Oct24.pdf</h3>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+                  Processed &amp; Active
+                </span>
+<span class="text-body-sm font-body-sm text-on-surface-variant hidden sm:inline">•</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">2.4 MB • 4 Pages</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="event">event</span>
+                  Sync Date: <strong class="text-on-surface font-medium">18 Oct 2024</strong>
+</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="schema">schema</span>
+                  Embedding Chunks: <strong class="text-on-surface font-medium">32 vectors</strong>
+</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="verified_user">verified_user</span>
+                  Source: Dean Academics Portal
+                </span>
+</div>
+<div class="mt-2 pt-1 flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="bg-surface-container px-2 py-0.5 rounded text-on-surface">Matched Queries: 342 queries this week</span>
+<span class="text-secondary font-medium">Relevance Confidence: 99.4%</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low text-on-surface rounded-lg text-label-md font-label-md flex items-center gap-1.5 transition-colors active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="replay">replay</span>
+              Reprocess
+            </button>
+<button class="px-3.5 py-1.5 bg-surface-container-lowest border border-primary text-primary hover:bg-primary-container hover:text-on-primary rounded-lg text-label-md font-label-md flex items-center gap-1.5 transition-colors active:scale-95 font-medium shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="format_quote">format_quote</span>
+              Review Citations
+            </button>
+<button aria-label="More options" class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+<!-- Document Row 2: Fee_Structure_DTE_MP_2024.pdf -->
+<article class="p-4 sm:p-5 hover:bg-surface-container-low/40 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4 bg-error-container/10">
+<div class="flex items-start gap-3.5">
+<div class="p-2.5 rounded-lg bg-surface-container-high text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-2xl" data-icon="receipt_long">receipt_long</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2.5 flex-wrap">
+<h3 class="text-title-md font-title-md text-on-surface font-semibold">Fee_Structure_DTE_MP_2024.pdf</h3>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="warning">warning</span>
+                  Review Required
+                </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-container-highest text-on-surface font-code-snippet text-body-sm font-medium">
+                  Missing issue date
+                </span>
+</div>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-error" data-icon="error_outline">error_outline</span>
+                  Parsed Warning: <strong class="text-error font-medium">Ambiguous valid semester timeline</strong>
+</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="event">event</span>
+                  Sync Attempt: Today, 04:12 AM
+                </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">
+                AI Hallucination Guardrail: Document temporarily suppressed from public prompt citations until administrative date verification.
+              </p>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<button class="px-4 py-1.5 bg-primary-container text-on-primary hover:bg-secondary rounded-lg text-label-md font-label-md flex items-center gap-1.5 transition-colors active:scale-95 shadow-sm font-medium">
+<span class="material-symbols-outlined text-base" data-icon="fact_check">fact_check</span>
+              Verify
+            </button>
+<button aria-label="More options" class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+<!-- Document Row 3: Old_Bus_Routes_2021.pdf -->
+<article class="p-4 sm:p-5 hover:bg-surface-container-low/40 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4 opacity-75">
+<div class="flex items-start gap-3.5">
+<div class="p-2.5 rounded-lg bg-surface-container text-on-surface-variant shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-2xl" data-icon="archive">archive</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2.5 flex-wrap">
+<h3 class="text-title-md font-title-md text-on-surface font-semibold">Old_Bus_Routes_2021.pdf</h3>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm font-medium">
+                  Archived
+                </span>
+<span class="text-body-sm font-body-sm text-on-surface-variant hidden sm:inline">•</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Superseded by 2024 Transport Directory</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="event_busy">event_busy</span>
+                  Archived On: 12 Aug 2024
+                </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="inventory_2">inventory_2</span>
+                  Status: Cold Vector Storage
+                </span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2 self-end md:self-center shrink-0">
+<button class="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low text-on-surface-variant rounded-lg text-label-md font-label-md flex items-center gap-1.5 transition-colors active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="unarchive">unarchive</span>
+              Restore
+            </button>
+<button aria-label="More options" class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Pagination / Footer Bar -->
+<div class="p-4 bg-surface-container-lowest border-t border-outline-variant flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span>Showing <strong>1-3</strong> of <strong>428</strong> indexed institutional documents</span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 border border-outline-variant rounded hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">Previous</button>
+<button class="px-3 py-1 bg-primary-container text-on-primary rounded font-medium">1</button>
+<button class="px-3 py-1 hover:bg-surface-container-low rounded transition-colors">2</button>
+<button class="px-3 py-1 hover:bg-surface-container-low rounded transition-colors">3</button>
+<button class="px-2.5 py-1 border border-outline-variant rounded hover:bg-surface-container-low transition-colors">Next</button>
+</div>
+</div>
+</section>
+<!-- Vector Audit & Institutional Compliance Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm">
+<div class="flex flex-col md:flex-row gap-5 items-start md:items-center justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="gavel">gavel</span>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold">Institutional Grounding &amp; Citation Compliance</h3>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant max-w-2xl">
+            CampusAssist AI guarantees strict adherence to MITS Gwalior syllabus guidelines. Documents with low cosine similarity or missing semester stamps are flagged automatically to eliminate academic hallucinations.
+          </p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="text-label-sm font-label-sm text-on-surface-variant block">Sync Engine Health</span>
+<span class="text-title-md font-title-md text-secondary font-bold">99.8% Online</span>
+</div>
+<div class="h-10 w-[1px] bg-outline-variant"></div>
+<div class="text-right">
+<span class="text-label-sm font-label-sm text-on-surface-variant block">RAG Accuracy</span>
+<span class="text-title-md font-title-md text-primary font-bold">99.1% Grounded</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Sync History Modal (Triggered by History Button) -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-4" id="syncModal">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full border border-outline-variant shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+<div class="p-4 border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+<h3 class="text-headline-sm font-headline-sm text-on-surface font-semibold">Sync History &amp; Audit Log</h3>
+</div>
+<button class="p-1 rounded-lg hover:bg-surface-container-low text-on-surface-variant" id="closeModalBtn">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="p-4 divide-y divide-outline-variant max-h-80 overflow-y-auto">
+<div class="py-3 flex items-start justify-between">
+<div>
+<p class="text-label-md font-label-md text-on-surface font-medium">Scheduled Cron: Notifications Scraping</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Today, 06:30 AM • 4 new documents vectorised</p>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm font-semibold">Success</span>
+</div>
+<div class="py-3 flex items-start justify-between">
+<div>
+<p class="text-label-md font-label-md text-on-surface font-medium">Manual Ingestion by Admin</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Yesterday, 08:15 PM • Exam_Schedules_Nov24.pdf</p>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm font-semibold">Success</span>
+</div>
+<div class="py-3 flex items-start justify-between">
+<div>
+<p class="text-label-md font-label-md text-on-surface font-medium">Departmental Fee Gazette Sync</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Yesterday, 04:00 PM • Flagged for human verification</p>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-label-sm font-label-sm font-semibold">Flagged</span>
+</div>
+</div>
+<div class="p-3.5 bg-surface-container-low border-t border-outline-variant text-right">
+<button class="px-4 py-1.5 bg-primary-container text-on-primary rounded-lg text-label-md font-label-md" id="closeModalFooterBtn">Close Audit View</button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar Component (Rendered strictly from Shared Components JSON blueprint for Mobile, hidden on md+) -->
+<!-- Contextual Active State Determination: This is Knowledge Base Management / Admin Explorer, thus 'Explorer' is active -->
+<nav aria-label="Administrative Navigation" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-space-xs bg-surface-container-lowest shadow-sm md:hidden">
+<!-- Tab 1: Chat -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="forum">forum</span>
+<span class="text-label-sm font-label-sm">Chat</span>
+</a>
+<!-- Tab 2: Explorer (ACTIVE: Closest match to Knowledge Base Explorer & Document Vault) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-label-sm font-label-sm font-semibold">Explorer</span>
+</a>
+<!-- Tab 3: Recent -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="history">history</span>
+<span class="text-label-sm font-label-sm">Recent</span>
+</a>
+<!-- Tab 4: Settings -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="settings">settings</span>
+<span class="text-label-sm font-label-sm">Settings</span>
+</a>
+</nav>
+<!-- Interactive JavaScript for micro-interactions -->
+<script>
+    const syncHistoryBtn = document.getElementById('syncHistoryBtn');
+    const syncModal = document.getElementById('syncModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const closeModalFooterBtn = document.getElementById('closeModalFooterBtn');
+
+    if (syncHistoryBtn && syncModal) {
+      syncHistoryBtn.addEventListener('click', () => {
+        syncModal.classList.remove('hidden');
+        syncModal.classList.add('flex');
+      });
+      
+      const closeModal = () => {
+        syncModal.classList.add('hidden');
+        syncModal.classList.remove('flex');
+      };
+
+      if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+      if (closeModalFooterBtn) closeModalFooterBtn.addEventListener('click', closeModal);
+      syncModal.addEventListener('click', (e) => {
+        if (e.target === syncModal) closeModal();
+      });
+    }
+  </script>
+</body></html>

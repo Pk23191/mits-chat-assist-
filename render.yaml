@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: campusassist-ai
+    env: python
+    buildCommand: "pip install -r requirements.txt && python -c \"from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')\""
+    startCommand: "python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health/live
+    envVars:
+      - key: APP_NAME
+        value: CampusAssist AI
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CHROMA_COLLECTION
+        value: campusassist_faq
+      - key: EMBEDDING_MODEL
+        value: sentence-transformers/all-MiniLM-L6-v2
+      - key: RETRIEVAL_MAX_DISTANCE
+        value: "0.75"
+      - key: RETRIEVAL_TOP_K
+        value: "4"
+    disk:
+      name: chroma-storage
+      mountPath: /opt/render/project/src/data/vectorstore
+      sizeGB: 1
