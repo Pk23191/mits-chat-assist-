@@ -44,11 +44,12 @@ _backup_*/
 scratch/
 *.log
 
-# System files
+# System & External Tool files
 .DS_Store
 Thumbs.db
 .idea/
 *.vscode/
+JULES_REPORT.md
 
 
 

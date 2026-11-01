@@ -12,7 +12,11 @@ services:
       - APP_ENV=production
       - LOG_LEVEL=INFO
       - CORS_ORIGINS=http://localhost:8000,http://127.0.0.1:8000
+      - AI_PROVIDER=${AI_PROVIDER:-gemini}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-gemini-2.5-flash}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-minicpm-v4.6:1b}
       - DATA_DIR=data
       - VECTOR_STORE_DIR=data/vectorstore
       - CHROMA_COLLECTION=campusassist_faq

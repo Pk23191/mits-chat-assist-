@@ -17,11 +17,25 @@ class Settings(BaseSettings):
     app_env: str = "development"
     log_level: str = "INFO"
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:8000"])
+
+    # AI Provider configuration: 'gemini', 'ollama', or 'auto'
+    ai_provider: str = Field(default="gemini")
     gemini_api_key: SecretStr | None = None
+    llm_model: str = Field(default="gemini-3.5-flash")
+    ollama_base_url: str = Field(default="http://localhost:11434")
+    ollama_model: str = Field(default="minicpm-v4.6:1b")
+
+    # Paths & Knowledge Base
     data_dir: str = "data"
     vector_store_dir: str = "data/vectorstore"
     chroma_collection: str = "campusassist_faq"
+
+    # Embedding Model configuration
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    embedding_model_dir: str | None = None
+    hf_hub_offline: bool | None = None
+
+    # Chunking & Retrieval parameters
     chunk_size: int = Field(default=800, ge=100, le=4000)
     chunk_overlap: int = Field(default=120, ge=0, le=1000)
     retrieval_top_k: int = Field(default=4, ge=1, le=10)
@@ -29,11 +43,21 @@ class Settings(BaseSettings):
     max_document_bytes: int = Field(default=5_000_000, ge=1024, le=20_000_000)
     max_pdf_pages: int = Field(default=100, ge=1, le=500)
 
+
     @field_validator("cors_origins", mode="before")
     @classmethod
     def parse_cors_origins(cls, value: object) -> object:
         if isinstance(value, str):
-            return [origin.strip() for origin in value.split(",") if origin.strip()]
+            val_str = value.strip()
+            if val_str.startswith("[") and val_str.endswith("]"):
+                import json
+                try:
+                    parsed = json.loads(val_str)
+                    if isinstance(parsed, list):
+                        return [str(item).strip() for item in parsed if str(item).strip()]
+                except Exception:
+                    pass
+            return [origin.strip().strip('"').strip("'") for origin in val_str.split(",") if origin.strip()]
         return value
 
     @field_validator("log_level")

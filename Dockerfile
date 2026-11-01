@@ -4,7 +4,8 @@ FROM python:3.11-slim AS base
 # Prevent Python from writing .pyc files and enable unbuffered output
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PORT=8000
+    PORT=8000 \
+    PYTHONPATH=/app
 
 WORKDIR /app
 
@@ -15,22 +16,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY requirements.txt pyproject.toml ./
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
-
-# Pre-download the embedding model during build so container starts instantly offline
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
-
-# Set offline flag after model is pre-cached
-ENV HF_HUB_OFFLINE=1
 
 # Copy application source code and knowledge base
 COPY backend/ ./backend/
 COPY frontend/ ./frontend/
 COPY data/mits/ ./data/mits/
 
-# Create runtime directories for persistence and set permissions
+# Pre-download and verify the embedding model during build for instant offline startups
+RUN python -m backend.app.download_model
+
+# Set offline flag after model is pre-cached
+ENV HF_HUB_OFFLINE=1
+
+# Create runtime directories for persistence and set non-root user permissions
 RUN mkdir -p data/vectorstore && \
     useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app

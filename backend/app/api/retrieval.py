@@ -40,8 +40,13 @@ class RetrieveResponse(BaseModel):
 def get_service(request: Request) -> RetrievalService:
     service = getattr(request.app.state, "retrieval_service", None)
     if service is None or not service.available:
-        raise HTTPException(status_code=503, detail={"code": "retrieval_unavailable", "message": "Retrieval service is not ready."})
+        err_msg = getattr(request.app.state, "retrieval_error", None) or "Retrieval service is not ready."
+        raise HTTPException(
+            status_code=503,
+            detail={"code": "retrieval_unavailable", "message": err_msg},
+        )
     return service
+
 
 
 @router.post("/retrieve", response_model=RetrieveResponse)

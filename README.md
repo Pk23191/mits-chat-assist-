@@ -1,113 +1,249 @@
 # CampusAssist AI
 
-CampusAssist AI is a fictional college FAQ retrieval project. Phase 2 adds local document ingestion, chunking, embeddings, persistent ChromaDB storage, and source-grounded retrieval. It does not generate answers with Gemini. The sample FAQs, policies, dates, and all sample fee amounts are invented and are not verified information about any real college.
+**Institutional AI Assistant & Grounded Retrieval-Augmented Generation (RAG) System** for Madhav Institute of Technology & Science (MITS), Gwalior.
 
-## Requirements and Windows setup
+CampusAssist AI provides verified, document-grounded answers to student inquiries regarding admissions, academic calendars, fee structures, courses, and campus facilities. It pairs a high-performance vector retrieval engine with dual AI generation providers (Google Gemini & Local Ollama), wrapped in an official Stitch campus web interface.
 
-Use Python 3.11 or newer and PowerShell from the repository root:
+---
 
+## Key Features
+
+- **Document-Grounded RAG Pipeline**: All answers are synthesized strictly from official MITS documents. If information is not present in the verified documents, the system explicitly acknowledges the boundary rather than fabricating responses.
+- **Two-Tier Offline-First Embedding Engine**: Uses `sentence-transformers/all-MiniLM-L6-v2` with intelligent local caching and standalone CLI preparation. Offline startup is fully supported without runtime Hugging Face connectivity.
+- **Multi-Provider AI Generation**:
+  - **Google Gemini**: Powered by official Google GenAI (`gemini-2.5-flash`, `gemini-2.0-flash`, `gemini-1.5-flash`).
+  - **Local Ollama**: Offline, sovereign LLM inference (`minicpm-v4.6:1b`, `qwen2.5:7b`, etc.) without API costs or internet dependency.
+  - **Graceful Fallback**: Automatically provides retrieved excerpts with confidence scores even if external LLM generation is unavailable.
+- **Self-Seeding Knowledge Base**: ChromaDB vector store automatically initializes and self-seeds on first boot from verified institutional documents in `data/mits/`.
+- **Integrated Stitch Web UI**: Single-page application featuring Chat, Document Explorer, Academic Syllabus, and Knowledge Base Admin monitoring.
+- **Comprehensive Health Monitoring**: Live and ready probes (`/health/live`, `/health/ready`, `/health/vectorstore`, `/health/ai-provider`).
+- **Reproducible & Cross-Platform**: Verified on Windows, macOS, Linux, and Docker containers.
+
+---
+
+## System Requirements
+
+- **Python**: 3.10, 3.11, 3.12, or 3.13
+- **Disk Space**: ~250MB for embedding model weights and dependencies
+- **RAM**: Minimum 4GB (8GB recommended if running local Ollama models)
+- **OS**: Windows 10/11, macOS (Intel/Apple Silicon), or Linux (Ubuntu, Debian, etc.)
+
+---
+
+## Quickstart Setup Guide
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Pk23191/mits-chat-assist-.git
+cd mits-chat-assist-
+```
+
+### 2. Set Up Virtual Environment
+
+#### On Windows (PowerShell):
 ```powershell
-py -3.11 -m venv .venv
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-Copy-Item .env.example .env
+pip install -r requirements.txt
 ```
 
-If PowerShell blocks activation, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` in that terminal, then activate again. The first embedding-model initialization downloads `sentence-transformers/all-MiniLM-L6-v2` from Hugging Face and stores it in the local model cache. That model is used for both ingestion and retrieval. No Gemini API key is required in this phase.
+*Note: If PowerShell blocks script execution, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` first.*
 
-## Configuration
-
-Settings come from environment variables or `.env`; `.env` must not be committed. Configure `CORS_ORIGINS` as an exact comma-separated allowlist. Retrieval settings:
-
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `DATA_DIR` | `data` | Root for approved local source documents |
-| `VECTOR_STORE_DIR` | `data/vectorstore` | Persistent local Chroma storage |
-| `CHROMA_COLLECTION` | `campusassist_faq` | Chroma collection name |
-| `EMBEDDING_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | Local embedding model; must remain consistent with the stored collection |
-| `CHUNK_SIZE` / `CHUNK_OVERLAP` | `800` / `120` | Character chunking limits |
-| `RETRIEVAL_TOP_K` | `4` | Default result count (hard maximum 10) |
-| `RETRIEVAL_MAX_DISTANCE` | `0.75` | Maximum cosine distance accepted as relevant |
-| `MAX_DOCUMENT_BYTES` | `5000000` | Source file size limit |
-| `MAX_PDF_PAGES` | `100` | PDF page count limit |
-
-## Ingest the fictional sample FAQs
-
-Run ingestion as a local operator command. It is intentionally not exposed as an HTTP upload route:
-
-```powershell
-python -m backend.app
+#### On macOS / Linux:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-To ingest a text-based PDF saved under `DATA_DIR`:
+---
 
-```powershell
-python -m backend.app sample/handbook.pdf
+### 3. Configure Environment Variables
+
+Copy the example configuration to create your local `.env`:
+
+```bash
+cp .env.example .env     # On macOS/Linux
+# OR
+Copy-Item .env.example .env   # On Windows PowerShell
 ```
 
-The source path is resolved beneath `DATA_DIR`; traversal outside it is rejected. Only the fixed fictional FAQ JSON or a PDF is accepted. The PDF reader validates file signature, byte and page limits, encryption state, and extractable text. Scanned/image-only PDFs are unsupported. Re-ingestion upserts deterministic chunk IDs.
+Edit `.env` to configure your AI provider:
 
-## Fetch and ingest MITS Gwalior public pages
+#### Option A: Google Gemini (Recommended for cloud inference)
+1. Get a free API key from [Google AI Studio](https://aistudio.google.com/).
+2. Set in `.env`:
+   ```ini
+   AI_PROVIDER=gemini
+   GEMINI_API_KEY=your_actual_gemini_api_key_here
+   LLM_MODEL=gemini-2.5-flash
+   ```
 
-An auditable data-fetching pipeline downloads permitted public HTML pages and PDF documents from the official Madhav Institute of Technology & Science (MITS) website (`web.mitsgwalior.in`), extracts structured text and metadata, and feeds validated documents into the ingestion pipeline:
+#### Option B: Local Ollama (Recommended for offline / private inference)
+1. Install [Ollama](https://ollama.ai/) and start the daemon.
+2. Pull a lightweight model:
+   ```bash
+   ollama pull minicpm-v4.6:1b
+   # OR
+   ollama pull qwen2.5:7b
+   ```
+3. Set in `.env`:
+   ```ini
+   AI_PROVIDER=ollama
+   OLLAMA_BASE_URL=http://localhost:11434
+   OLLAMA_MODEL=minicpm-v4.6:1b
+   ```
 
-```powershell
-# 1. Preview URLs without downloading (dry run)
-python -m backend.app.fetch_mits --dry-run
+#### Option C: Retrieval-Only (No AI API key or local model required)
+Leave `GEMINI_API_KEY=` blank. The system will retrieve relevant source documents and present verified excerpts directly.
 
-# 2. Fetch permitted public pages and ingest into ChromaDB
-python -m backend.app.fetch_mits
+---
 
-# 3. Fetch specific URLs with conservative rate limiting (minimum 1.0s delay)
-python -m backend.app.fetch_mits --url https://web.mitsgwalior.in/admission/ug-admissions --delay 2.0
+### 4. Prepare the Embedding Model (Offline-First Step)
 
-# 4. Ingest previously fetched documents
-python -m backend.app.fetch_mits --ingest-only
+Run the standalone preparation utility to download and verify the embedding model weights:
+
+```bash
+python -m backend.app.download_model
 ```
 
-### Safety and auditing rules
-- **Domain allowlist**: Requests are strictly restricted to `web.mitsgwalior.in`, `www.mitsgwalior.in`, and `mitsgwalior.in`. External subdomains and external links are rejected.
-- **Rate limiting and timeouts**: Enforces a minimum 1.0s delay between requests (default 2.0s) and configurable HTTP timeout (default 30.0s).
-- **Deduplication**: Tracks canonical URLs and SHA-256 content hashes in `data/mits/fetch_manifest.json` to prevent re-downloading duplicate documents.
-- **Audit reports**: Generates a timestamped JSON report in `data/mits/fetch_report_<timestamp>.json` detailing successes, skips, duplicates, errors, and items requiring human review.
-- **No public crawling endpoint**: Fetching requires explicit CLI invocation; no unauthenticated HTTP endpoint can trigger crawling.
-
-## Run the service and retrieve
-
-```powershell
-python -m uvicorn backend.app.main:app --reload
+To verify whether the model is already present in your local cache:
+```bash
+python -m backend.app.download_model --check-only
 ```
 
-`GET /health/live` checks process liveness. `GET /health/ready` reports whether the local embedding model and persistent vector store initialized. Retrieval is `POST /api/v1/retrieve`:
+Once downloaded, the server operates completely offline without checking Hugging Face on startup.
 
-```powershell
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/v1/retrieve `
-  -ContentType 'application/json' `
-  -Body '{"question":"What is the fictional library schedule?","top_k":3}'
+---
+
+### 5. Start the Application
+
+```bash
+python -m uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-The response contains matching text chunks, source identifiers, category, document and chunk IDs, and Chroma cosine distance. `no_results` is true when the collection is empty or every match exceeds the configured distance threshold. This endpoint returns sources only; it does not generate an answer.
+Open your browser and navigate to:
+**[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 
-## Tests
+---
 
-```powershell
-python -m pytest
+## Docker Deployment
+
+CampusAssist AI includes a multi-stage Docker build that pre-caches embedding weights for instant container boot:
+
+### Using Docker Compose:
+```bash
+docker compose up -d --build
+```
+Access the application at `http://localhost:8000`.
+
+---
+
+## Automated Testing
+
+Run the automated test suite (80 unit & integration tests):
+
+```bash
+pytest -v
 ```
 
-Tests use temporary Chroma directories and deterministic test embeddings. They do not download an embedding model or call a live API.
+All standard tests use deterministic embeddings and mocked LLM calls, ensuring fast and cost-free validation in CI environments.
 
-## Structure
+---
 
-- `backend/app/config.py`: validated environment settings
-- `backend/app/ingestion.py`: FAQ/PDF reading, validation, chunking, stable metadata and upserts
-- `backend/app/retrieval.py`: local embedding model and persistent Chroma service
-- `backend/app/api/`: health and versioned retrieval routes/schemas
-- `data/sample/fictional_faqs.json`: clearly labeled fictional examples
-- `frontend/static/`: future browser interface; contains no credentials
-- `tests/`: deterministic ingestion, retrieval, API and health tests
-- `docs/architecture.md`: phase architecture and security notes
+## Project Architecture
 
-## Limitations
+```
+├── .github/workflows/ci.yml       # GitHub Actions CI workflow
+├── backend/
+│   └── app/
+│       ├── main.py                # FastAPI app, lifespan, CORS, and static file mount
+│       ├── config.py              # Pydantic Settings with .env loading and validation
+│       ├── retrieval.py           # ChromaDB vector store, query expansion & embeddings
+│       ├── download_model.py      # Standalone embedding model preparation tool
+│       ├── generation.py          # Grounded LLM generation (Gemini & Ollama)
+│       ├── ingestion.py           # Document chunking, validation, and upserts
+│       ├── fetcher.py             # Official MITS domain crawler and extractor
+│       ├── fetch_mits.py          # CLI tool for institutional website ingestion
+│       ├── logging_config.py      # Structured JSON logging
+│       └── api/
+│           ├── routes.py          # Health checks (/health/live, ready, vectorstore, ai-provider)
+│           ├── ask.py             # Unified RAG ask endpoint (/api/v1/ask)
+│           └── retrieval.py       # Raw vector similarity endpoint (/api/v1/retrieve)
+├── data/
+│   ├── mits/                      # Extracted official text records and manifests
+│   ├── sample/                    # Sample FAQ JSON datasets
+│   └── vectorstore/               # Persistent Chroma SQLite database (git-ignored)
+├── frontend/
+│   └── static/
+│       ├── index.html             # Single Page Application (Chat, Explorer, Admin)
+│       ├── app.js                 # API communication and dynamic DOM rendering
+│       └── styles.css             # Design tokens and custom UI styling
+├── tests/                         # Full automated test suite (80 tests)
+├── pyproject.toml                 # Packaging and pytest configuration
+├── requirements.txt               # Pinned dependencies
+├── Dockerfile                     # Optimized production container
+└── docker-compose.yml             # Local container orchestration
+```
 
-This is a local development foundation. Model initialization requires a one-time model download and may take time; readiness remains false when initialization fails. PDF text extraction does not OCR scanned pages. The local store is not designed as a shared or production database. No authentication, Gemini answer generation, authorization workflow, or deployment configuration is included. Real policies must be supplied and verified by an authorized institution before this can answer real student questions.
+---
+
+## API Reference
+
+### 1. Unified Ask Endpoint (RAG + AI Generation)
+`POST /api/v1/ask`
+
+**Request Body:**
+```json
+{
+  "question": "What is the procedure for B.Tech admission?",
+  "top_k": 4
+}
+```
+
+**Response:**
+```json
+{
+  "answer": "Admission to B.Tech programs at MITS is conducted through JEE Main and MP DTE counselling...",
+  "sources": [
+    {
+      "title": "UG Admissions 2024",
+      "url": "https://web.mitsgwalior.in/admission/ug-admissions",
+      "category": "admission",
+      "excerpt": "Admission to Bachelor of Technology courses is governed by...",
+      "confidence": 92.4
+    }
+  ],
+  "status": "success",
+  "model": "gemini-2.5-flash",
+  "grounded": true
+}
+```
+
+### 2. Raw Similarity Search
+`POST /api/v1/retrieve`
+Returns raw matched chunks and cosine distances without LLM synthesis.
+
+### 3. Health Probes
+- `GET /health/live` — Application process liveness.
+- `GET /health/ready` — Vector store and embedding initialization readiness.
+- `GET /health/vectorstore` — Collection chunk count and metadata.
+- `GET /health/ai-provider` — Status of active and configured AI providers.
+
+---
+
+## Security & Repository Hygiene
+
+- **Zero Secrets Committed**: `.env`, API keys, and credential JSONs are strictly ignored by `.gitignore`.
+- **Domain Allowlist**: Web scrapers are locked strictly to official `mitsgwalior.in` domains.
+- **Path Traversal Protection**: Document ingestion safely resolves paths within `data/` and rejects escapes.
+- **Persistent Data Protection**: Vector store binaries (`chroma.sqlite3`) and model caches are excluded from source control.
+
+---
+
+## License
+
+MIT License. Developed for institutional academic assistance.

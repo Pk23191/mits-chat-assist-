@@ -44,11 +44,13 @@ class AskResponse(BaseModel):
 def _get_service(request: Request) -> RetrievalService:
     service = getattr(request.app.state, "retrieval_service", None)
     if service is None or not service.available:
+        err_msg = getattr(request.app.state, "retrieval_error", None) or "Retrieval service is not ready."
         raise HTTPException(
             status_code=503,
-            detail={"code": "retrieval_unavailable", "message": "Retrieval service is not ready."},
+            detail={"code": "retrieval_unavailable", "message": err_msg},
         )
     return service
+
 
 
 logger = logging.getLogger(__name__)

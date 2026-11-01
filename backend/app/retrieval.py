@@ -74,6 +74,57 @@ def expand_query(query: str) -> str:
     return query
 
 
+class EmbeddingModelError(RuntimeError):
+    """Raised when the embedding model cannot be loaded or files are missing."""
+
+
+def load_embeddings(settings: Settings) -> Embeddings:
+    """Load the configured embedding model with offline-first precedence and actionable diagnostics."""
+    import os
+    from backend.app.download_model import is_model_cached_locally
+
+    model_name = settings.embedding_model
+    model_dir = settings.embedding_model_dir
+
+    # Check if local model files or cached weights exist
+    is_cached, _ = is_model_cached_locally(model_name, model_dir)
+
+    # Respect explicit configuration or default to offline if local files exist
+    if settings.hf_hub_offline is True or (settings.hf_hub_offline is None and is_cached):
+        os.environ["HF_HUB_OFFLINE"] = "1"
+        try:
+            import huggingface_hub.constants
+            huggingface_hub.constants.HF_HUB_OFFLINE = True
+        except Exception:
+            pass
+    elif settings.hf_hub_offline is False:
+        os.environ.pop("HF_HUB_OFFLINE", None)
+        try:
+            import huggingface_hub.constants
+            huggingface_hub.constants.HF_HUB_OFFLINE = False
+        except Exception:
+            pass
+
+
+    try:
+        from langchain_huggingface import HuggingFaceEmbeddings
+
+        effective_model = model_dir if model_dir and Path(model_dir).is_dir() else model_name
+        embeddings = HuggingFaceEmbeddings(
+            model_name=effective_model,
+            model_kwargs={"device": "cpu"},
+            encode_kwargs={"normalize_embeddings": True},
+        )
+        return embeddings
+    except Exception as exc:
+        raise EmbeddingModelError(
+            f"Failed to load embedding model '{model_name}'. "
+            f"If you are setting up on a new laptop or offline, run: "
+            f"`python -m backend.app.download_model` to download and verify the model files. "
+            f"Details: {exc}"
+        ) from exc
+
+
 class RetrievalService:
     """Own the embedding and Chroma configuration shared by ingestion and queries."""
 
@@ -82,17 +133,19 @@ class RetrievalService:
         from langchain_chroma import Chroma
 
         if embeddings is None:
-            import os
-            os.environ.setdefault("HF_HUB_OFFLINE", "1")
-            from langchain_huggingface import HuggingFaceEmbeddings
+            embeddings = load_embeddings(settings)
+            # Verify real embedding model works and produces expected dimension
+            test_vec = embeddings.embed_query("CampusAssist dimension probe")
+            actual_dim = len(test_vec)
+            if "all-MiniLM-L6-v2" in settings.embedding_model and actual_dim != 384:
+                raise RuntimeError(
+                    f"Embedding dimension mismatch: expected 384 for '{settings.embedding_model}', but got {actual_dim}."
+                )
 
-            embeddings = HuggingFaceEmbeddings(
-                model_name=settings.embedding_model,
-                model_kwargs={"device": "cpu"},
-                encode_kwargs={"normalize_embeddings": True},
-            )
         Path(settings.vector_store_dir).mkdir(parents=True, exist_ok=True)
         self.settings = settings
+        self.embeddings = embeddings
+
         client = chromadb.PersistentClient(path=settings.vector_store_dir)
         collection = client.get_or_create_collection(
             name=settings.chroma_collection,
@@ -105,6 +158,7 @@ class RetrievalService:
             embedding_function=embeddings,
         )
         self.vector_store.get(limit=1)
+
 
     @property
     def available(self) -> bool:

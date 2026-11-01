@@ -32,7 +32,8 @@ def ready(request: Request) -> dict[str, str]:
     """Report whether embeddings and the persistent vector store initialized."""
     service: RetrievalService | None = getattr(request.app.state, "retrieval_service", None)
     if service is None or not service.available:
-        return {"status": "not_ready", "reason": "retrieval_service_unavailable"}
+        err_msg = getattr(request.app.state, "retrieval_error", None) or "retrieval_service_unavailable"
+        return {"status": "not_ready", "reason": err_msg}
     return {"status": "ready"}
 
 
@@ -67,11 +68,37 @@ def health_ai_provider() -> dict[str, object]:
     from backend.app.config import get_settings
 
     settings = get_settings()
-    has_key = bool(settings.gemini_api_key and settings.gemini_api_key.get_secret_value())
-    return {
-        "provider": "google-gemini",
-        "configured": has_key,
-        "status": "ready" if has_key else "unconfigured",
-        "models": ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash"],
-    }
+    has_gemini = bool(settings.gemini_api_key and settings.gemini_api_key.get_secret_value())
 
+    ollama_ready = False
+    try:
+        import httpx
+        res = httpx.get(f"{settings.ollama_base_url}/api/tags", timeout=1.0)
+        ollama_ready = res.status_code == 200
+    except Exception:
+        ollama_ready = False
+
+    active_provider = settings.ai_provider
+    if active_provider == "auto":
+        active_provider = "gemini" if has_gemini else ("ollama" if ollama_ready else "none")
+
+    is_configured = has_gemini if active_provider == "gemini" else (ollama_ready if active_provider == "ollama" else False)
+
+    return {
+        "provider": "google-gemini" if active_provider == "gemini" else active_provider,
+        "configured": is_configured,
+        "status": "ready" if is_configured else "unconfigured",
+        "models": ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"] if active_provider == "gemini" else [settings.ollama_model],
+        "active_provider": active_provider,
+        "configured_provider": settings.ai_provider,
+        "gemini": {
+            "configured": has_gemini,
+            "status": "ready" if has_gemini else "unconfigured",
+            "model": settings.llm_model,
+        },
+        "ollama": {
+            "reachable": ollama_ready,
+            "url": settings.ollama_base_url,
+            "model": settings.ollama_model,
+        },
+    }

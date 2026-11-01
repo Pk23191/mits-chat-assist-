@@ -47,16 +47,20 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
         except Exception:
             logger.warning("knowledge_base_auto_seed_skipped")
         _.state.retrieval_service = service
+        _.state.retrieval_error = None
         logger.info("retrieval_service_initialized")
-    except Exception:
+    except Exception as exc:
         _.state.retrieval_service = None
-        logger.exception("retrieval_service_initialization_failed")
+        _.state.retrieval_error = str(exc)
+        logger.exception("retrieval_service_initialization_failed: %s", exc)
     yield
     logger.info("application_stopped")
 
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
 app.state.retrieval_service = None
+app.state.retrieval_error = None
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
